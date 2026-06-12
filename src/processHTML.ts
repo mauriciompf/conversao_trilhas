@@ -2,14 +2,14 @@ import { docToHTML } from "./docToHTML";
 import { contentHost, templateFile } from "./main";
 
 export async function processHTML() {
+  const sections: HTMLElement[] = [];
+
   await docToHTML(contentHost, templateFile);
 
   // Change table sections to div sections
   const contentTables = contentHost.querySelectorAll(
     ".content-text > table",
   ) as NodeListOf<HTMLTableElement>;
-
-  const sections: HTMLElement[] = [];
 
   contentTables.forEach((table) => {
     let content = table.querySelector(
@@ -22,10 +22,8 @@ export async function processHTML() {
       section.appendChild(content.firstChild);
     }
 
-    const formattedContent = content.replaceWith(section);
+    content.replaceWith(section);
 
-    sections.push(content);
+    sections.push(section);
   });
-
-  console.log(sections);
 }
