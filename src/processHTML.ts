@@ -1,4 +1,5 @@
 import { docToHTML } from "./docToHTML";
+import { handleLocalFile } from "./handleLocalFile";
 import { contentHost, templateFile } from "./main";
 
 export async function processHTML() {
@@ -26,4 +27,6 @@ export async function processHTML() {
 
     sections.push(section);
   });
+
+  handleLocalFile();
 }
