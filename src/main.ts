@@ -1,4 +1,3 @@
-import { handleLocalFile } from "./handleLocalFile";
 import { processHTML } from "./processHTML";
 
 export const contentHost = document.querySelector(
@@ -10,4 +9,7 @@ export const templateFile =
 
 await processHTML();
 
-handleLocalFile();
+const popUp = document.querySelector(".retorno") as HTMLElement;
+if (popUp) {
+  document.querySelector(".retorno")!.remove();
+}

@@ -1,3 +1,5 @@
+import { URLRegex } from "./data";
+
 export function createDicaWrapper(
   prevElem: HTMLElement,
   fileName: HTMLElement,
@@ -30,6 +32,11 @@ export function createDicaWrapper(
       "data-gdoc",
       commentText.match(gDocRegex)!.filter((e) => e.match(/\d+/))![0],
     ); // Set code exclude texts
+  }
+
+  // Hyperlinks
+  if (commentText.match(URLRegex)) {
+    a.href = commentTextFormmated;
   }
 
   a.target = "_blank";

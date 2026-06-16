@@ -1,5 +1,11 @@
+import { URLRegex, vimeoRegex, YTLinkRegex } from "./data";
 import { docToHTML } from "./docToHTML";
+import { handleAllElements } from "./handleAllElements";
+import { handleHyperLinks } from "./handleHyperLink";
 import { handleLocalFile } from "./handleLocalFile";
+import { handleTable } from "./handleTable";
+import { handleVimeoVideo } from "./handleVimeoVideo";
+import { handleYTVideo } from "./handleYTVideo";
 import { contentHost, templateFile } from "./main";
 
 export async function processHTML() {
@@ -18,6 +24,7 @@ export async function processHTML() {
     ) as HTMLElement;
 
     const section = document.createElement("div");
+    section.className = "contentWrapper";
 
     while (content.firstChild) {
       section.appendChild(content.firstChild);
@@ -29,6 +36,16 @@ export async function processHTML() {
   });
 
   handleLocalFile();
+
+  handleVimeoVideo();
+
+  handleYTVideo();
+
+  handleHyperLinks();
+
+  handleTable();
+
+  handleAllElements();
 
   const dicaLeituraDivs = document.querySelectorAll(
     ".dica-leitura",
@@ -62,5 +79,9 @@ export async function processHTML() {
       previousDicaLeituraDiv.replaceWith(...previousDicaLeituraDiv.childNodes);
       div.replaceWith(...div.childNodes);
     }
+  });
+
+  document.querySelectorAll("p").forEach((element) => {
+    if (element.textContent === "ponto") element.remove();
   });
 }
