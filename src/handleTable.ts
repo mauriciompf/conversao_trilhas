@@ -3,12 +3,12 @@ export function handleTable() {
     "table",
   ) as NodeListOf<HTMLTableElement>;
 
-  const realTables = [...tables].filter(
-    (table, index) => index > 0 && table.rows.length >= 3,
-  );
+  const realTables = [...tables].filter((table) => table.rows.length >= 3);
 
-  realTables.forEach((table) => {
-    table.className = "tabela-padrao";
+  realTables.forEach((table, index) => {
+    if (index != 0) {
+      table.className = "tabela-padrao";
+    }
 
     const cells = table.querySelectorAll("tr > * > p");
 

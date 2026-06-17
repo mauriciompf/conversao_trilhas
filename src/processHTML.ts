@@ -1,4 +1,3 @@
-import { URLRegex, vimeoRegex, YTLinkRegex } from "./data";
 import { docToHTML } from "./docToHTML";
 import { handleAllElements } from "./handleAllElements";
 import { handleHyperLinks } from "./handleHyperLink";
@@ -18,22 +17,24 @@ export async function processHTML() {
     ".content-text > table",
   ) as NodeListOf<HTMLTableElement>;
 
-  contentTables.forEach((table) => {
-    let content = table.querySelector(
-      "tbody > tr:nth-child(2) > td",
-    ) as HTMLElement;
+  [...contentTables]
+    .filter((_, index) => index > 0)
+    .forEach((table) => {
+      let content = table.querySelector(
+        "tbody > tr:nth-child(2) > td",
+      ) as HTMLElement;
 
-    const section = document.createElement("div");
-    section.className = "contentWrapper";
+      const section = document.createElement("div");
+      section.className = "contentWrapper";
 
-    while (content.firstChild) {
-      section.appendChild(content.firstChild);
-    }
+      while (content.firstChild) {
+        section.appendChild(content.firstChild);
+      }
 
-    content.replaceWith(section);
+      content.replaceWith(section);
 
-    sections.push(section);
-  });
+      sections.push(section);
+    });
 
   handleLocalFile();
 
@@ -44,6 +45,67 @@ export async function processHTML() {
   handleHyperLinks();
 
   handleTable();
+
+  const contentWrapper = document.querySelectorAll(
+    ".contentWrapper",
+  ) as NodeListOf<HTMLElement>;
+
+  contentWrapper.forEach((section) => {
+    const headings = {
+      h1: section.querySelector("h1") as HTMLHeadingElement,
+      h2: section.querySelector("h2") as HTMLHeadingElement,
+      h3: section.querySelector("h3") as HTMLHeadingElement,
+    };
+    const existingHeadings = Object.entries(headings);
+
+    existingHeadings
+      .filter(([_, element]) => element !== null)
+      .forEach(([tagName, element]) => {
+        const replacedHTML = element.outerHTML
+          .replace(`<${tagName}>`, "<p class='titulo-secao'>")
+          .replace(`</${tagName}>`, "</p>");
+
+        element.outerHTML = replacedHTML;
+      });
+
+    const tables = section.querySelectorAll(
+      "table",
+    ) as NodeListOf<HTMLTableElement>;
+
+    const fakeTables = [...tables].filter((table) => table.rows.length <= 3);
+
+    fakeTables.forEach((table) => {
+      const isNested =
+        table.querySelector(".dica-leitura") || table.querySelector(".video");
+
+      if (isNested) {
+        const replacedHTML = table.outerHTML
+          .replace(/^<table>/g, "")
+          .replace(/<\/table>$/g, "");
+        table.outerHTML = replacedHTML;
+      }
+
+      const replacedHTML = table.outerHTML
+        .replace(/^<table>/g, "<div class='outline-colorido'>")
+        .replace(/<\/table>$/g, "</div>");
+      table.outerHTML = replacedHTML;
+    });
+  });
+
+  const pTags = document.querySelectorAll(
+    "p",
+  ) as NodeListOf<HTMLParagraphElement>;
+
+  const titles = [...pTags].filter(
+    (pTag) =>
+      pTag.querySelector("strong") &&
+      pTag.textContent.length < 70 &&
+      !pTag.hasAttribute("class"),
+  );
+
+  titles.forEach((title) => {
+    title.className = "titulo-secao";
+  });
 
   handleAllElements();
 
