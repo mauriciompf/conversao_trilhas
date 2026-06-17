@@ -1,0 +1,270 @@
+<!doctype html>
+<html lang="pt-br">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Apresentação - templateCode</title>
+
+    <meta
+      name="description"
+      content="Apresentação da disciplina de templateCode Escolar da UNIASSELVI"
+    />
+    <meta
+      name="keywords"
+      content="Trilha de aprendizagem, templateCode Escolar, Uniasselvi, EAD, Ensino Superior, Ciências Humanas, Apresentação"
+    />
+
+    <link rel="icon" type="image/png" href="../img/favicon.png" />
+
+    <!-- Google Tag Manager -->
+    <script>
+      (function (w, d, s, l, i) {
+        w[l] = w[l] || [];
+        w[l].push({
+          "gtm.start": new Date().getTime(),
+          event: "gtm.js",
+        });
+        var f = d.getElementsByTagName(s)[0],
+          j = d.createElement(s),
+          dl = l != "dataLayer" ? "&l=" + l : "";
+        j.async = true;
+        j.src = "https://www.googletagmanager.com/gtm.js?id=" + i + dl;
+        f.parentNode.insertBefore(j, f);
+      })(window, document, "script", "dataLayer", "GTM-MP748JT");
+    </script>
+    <!-- End Google Tag Manager -->
+
+    <noscript>
+      <link
+        rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap"
+      />
+    </noscript>
+
+    <link rel="stylesheet" href="../css/normalize.css" />
+    <link rel="stylesheet" href="../css/var_humanas.css" />
+    <link rel="stylesheet" href="../css/style.css" />
+    <link rel="stylesheet" href="../css/background.css" />
+    <link rel="stylesheet" href="./css/style.css" />
+
+    <script defer src="../js/progressbar.min.js"></script>
+    <script defer src="../js/main.js"></script>
+    <script src="../js/lazysizes.min.js"></script>
+  </head>
+
+  <body>
+    <!-- Google Tag Manager (noscript) -->
+    <noscript>
+      <iframe
+        src="https://www.googletagmanager.com/ns.html?id=GTM-MP748JT"
+        height="0"
+        width="0"
+        style="display: none; visibility: hidden"
+      ></iframe>
+    </noscript>
+    <!-- End Google Tag Manager (noscript) -->
+
+    <div id="accessibility-menu">
+      <div
+        id="accessibility-toggle"
+        class="accessibility-item"
+        onclick="toggleAccess()"
+        title="Acessibilidade"
+      >
+        <i class="material-icons">accessibility</i>
+      </div>
+      <div
+        id="accessibility-decrease"
+        class="accessibility-item"
+        onclick="decreaseFont()"
+        title="Diminuir a Fonte"
+      >
+        <i class="material-icons">text_fields</i>
+      </div>
+      <div
+        id="accessibility-reset"
+        class="accessibility-item"
+        onclick="resetFont()"
+        title="Redefinir a Fonte"
+      >
+        <i class="material-icons">title</i>
+      </div>
+      <div
+        id="accessibility-increase"
+        class="accessibility-item"
+        onclick="increaseFont()"
+        title="Aumentar a Fonte"
+      >
+        <i class="material-icons">format_size</i>
+      </div>
+    </div>
+
+    <div class="wrapper">
+      <div class="top-menu-toggle flex-c" onclick="toggleMenu()">
+        <i class="material-icons">menu</i>
+      </div>
+      <div id="topbar">
+        <div class="top-uniwrapper">
+          <a id="topbar-apresentacao" class="top-unidade selected">
+            <div class="top-antes"></div>
+            <span>Apresentação</span>
+            <div class="top-depois"></div>
+          </a>
+          <a id="topbar-etapa_i" class="top-unidade" href="etapa_i.html">
+            <div class="top-antes"></div>
+            <span>Etapa I</span>
+            <div class="top-depois"></div>
+          </a>
+          <a id="topbar-u1" class="top-unidade" href="etapa_ii.html">
+            <div class="top-antes"></div>
+            <span>Etapa II</span>
+            <div class="top-depois"></div>
+          </a>
+          <a id="topbar-u2" class="top-unidade" href="etapa_iii.html">
+            <div class="top-antes"></div>
+            <span>Etapa III</span>
+            <div class="top-depois"></div>
+          </a>
+          <a id="topbar-u3" class="top-unidade" href="etapa_iv.html">
+            <div class="top-antes"></div>
+            <span>Etapa IV</span>
+            <div class="top-depois"></div>
+          </a>
+        </div>
+        <div class="topbar-progress"></div>
+      </div>
+
+      <div id="sidebar">
+        <div class="wrapper">
+          <div class="sidebar-logo">
+            <img src="../img/favicon.png" alt="Logo Uniasselvi" />
+          </div>
+
+          <div class="sidebar-group">
+            <div
+              id="main-menu-inicio"
+              class="sidebar-item"
+              onclick="redirect('inicio')"
+            >
+              <span>Início</span>
+            </div>
+          </div>
+
+          <div class="sidebar-group">
+            <div class="sidebar-title">Minha Trilha</div>
+            <div
+              id="main-menu-apresentacao"
+              class="sidebar-item selected"
+              onclick="redirect('apresentacao')"
+            >
+              <span>Apresentação</span>
+              <div class="sidebar-progress"></div>
+            </div>
+            <div
+              id="main-menu-etapa_i"
+              class="sidebar-item"
+              onclick="redirect('etapa_i')"
+            >
+              Etapa I
+            </div>
+
+            <div
+              id="main-menu-u1"
+              class="sidebar-item"
+              onclick="redirect('etapa_ii')"
+            >
+              Etapa II
+            </div>
+
+            <div
+              id="main-menu-u2"
+              class="sidebar-item"
+              onclick="redirect('etapa_iii')"
+            >
+              <span>Etapa III</span>
+            </div>
+
+            <div
+              id="main-menu-u3"
+              class="sidebar-item"
+              onclick="redirect('etapa_iv')"
+            >
+              Etapa IV
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="content-page">
+        <div class="wrapper">
+          <h1 class="title-big flex-c text-white bg1">templateCode</h1>
+
+          <div class="content-section flex-c column">
+            <div class="subheader text-center">BEM-VINDO, ACADÊMICO</div>
+            <h2 class="header header-gradient text-center">Apresentação</h2>
+
+            <div class="content-text"></div>
+
+            <!-- Fim do conteúdo -->
+            <br />
+            <div class="subheader">BONS ESTUDOS!</div>
+            <br />
+            <div class="button-group">
+              <div class="button-wrapper flex-c" title="Ir para o Início">
+                <a id="nav-prev" class="button-next" href="inicio.html">
+                  <i class="material-icons large">chevron_left</i>
+                  &emsp;Início</a
+                >
+              </div>
+
+              <div class="button-wrapper flex-c" title="Voltar ao Topo">
+                <div id="nav-top" class="button-top" onclick="sctop()">
+                  <i class="material-icons large">expand_less</i>
+                </div>
+              </div>
+
+              <div class="button-wrapper flex-c" title="Ir para Etapa 1">
+                <a id="nav-next" class="button-next" href="etapa_i.html">
+                  Etapa 1&emsp;<i class="material-icons large"
+                    >chevron_right</i
+                  ></a
+                >
+              </div>
+            </div>
+          </div>
+
+          <!-- Footer -->
+
+          <div class="content-footer v22-1">
+            <div class="footer-marca">
+              <img src="../img/favicon.png" alt="" />
+              <span class="footer-marca-texto"
+                >UNIASSELVI © Todos os direitos reservados.</span
+              >
+            </div>
+            <div class="footer-links">
+              <a href="https://portal.uniasselvi.com.br/" target="_blank">
+                <img src="../img/favicon.png" alt="" />
+                Acesse o Portal UNIASSELVI</a
+              >
+              <a href="https://ava2.uniasselvi.com.br/">
+                <img src="../img/texto_gio.svg" alt="" />
+
+                Ir para o AVA</a
+              >
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script>
+      /* Defer font loading */
+      var giftofspeed = document.createElement("link");
+      giftofspeed.rel = "stylesheet";
+      giftofspeed.href =
+        "https://fonts.googleapis.com/css2?family=Open+Sans&display=swap";
+      var godefer = document.getElementsByTagName("link")[0];
+      godefer.parentNode.insertBefore(giftofspeed, godefer);
+    </script>
+  </body>
+</html>

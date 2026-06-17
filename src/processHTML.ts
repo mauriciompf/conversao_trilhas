@@ -6,11 +6,14 @@ import { handleTable } from "./handleTable";
 import { handleVimeoVideo } from "./handleVimeoVideo";
 import { handleYTVideo } from "./handleYTVideo";
 import { contentHost, templateFile } from "./main";
+import { saveAs } from "./saveAs";
 
 export async function processHTML() {
   const sections: HTMLElement[] = [];
 
   await docToHTML(contentHost, templateFile);
+
+  saveAs();
 
   // Change table sections to div sections
   const contentTables = contentHost.querySelectorAll(
