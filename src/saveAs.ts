@@ -1,7 +1,3 @@
-// import { adjustIframes } from "./adjustIframes";
-// import { downloadAsZip } from "./downloadAsZip";
-// import { getMetadata } from "./getMetadata";
-
 import { downloadZip } from "./downloadZip";
 
 export async function saveAs() {

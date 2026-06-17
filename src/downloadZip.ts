@@ -115,43 +115,4 @@ export async function downloadZip() {
   } catch (error) {
     console.error("Failed to generate zip", error);
   }
-
-  // console.log(code, titleName);
-
-  //   // Format texts
-  //   const selfHTMLFormatted = pretty(etapaUnica(selfContent, titleName!), {
-  //     ocd: true,
-  //   });
-  //   const inicioHTML = pretty(inicio(titleName!), { ocd: true });
-  //   const objetosHTML = pretty(objetos(titleName!), { ocd: true });
-  //   const videosHTML = pretty(videos(titleName!), { ocd: true });
-  //   const styleText = pretty(style(), { ocd: true });
-
-  //   // Create folders 'img' and 'materias' and their files
-  //   const css = zip.folder("css")!;
-  //   css.file("style.css", styleText);
-  //   zip.folder("materiais");
-
-  //   // Html files
-  //   zip.file("unidade1.html", selfHTMLFormatted);
-  //   zip.file("inicio.html", inicioHTML);
-  //   zip.file("objetos.html", objetosHTML);
-  //   zip.file("videos.html", videosHTML);
-
-  //   try {
-  //     const content = await zip.generateAsync({ type: "blob" });
-
-  //     const url = URL.createObjectURL(content);
-  //     const link = document.createElement("a") as HTMLAnchorElement;
-  //     link.href = url;
-  //     link.download = `${fileNameConverter(code! + titleName!, "short")}.zip`;
-
-  //     document.body.appendChild(link);
-  //     link.click();
-
-  //     document.body.removeChild(link);
-  //     URL.revokeObjectURL(url);
-  //   } catch (error) {
-  //     console.error("Failed to generate zip", error);
-  //   }
 }
