@@ -21,7 +21,7 @@ export function createDicaWrapper(
 
   const a = document.createElement("a") as HTMLAnchorElement;
   const commentTextFormmated = commentText.replace("↑", "").trim();
-  const commentTextLink = "/materiais/" + commentTextFormmated;
+  const commentTextLink = "materiais/" + commentTextFormmated;
   a.href = commentTextLink;
 
   // GDOC links
