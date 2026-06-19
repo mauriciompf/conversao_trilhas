@@ -5,13 +5,11 @@ export function handleTable() {
 
   const realTables = [...tables].filter((table) => table.rows.length >= 3);
 
-  realTables.forEach((table, index) => {
-    if (index != 0) {
-      table.className = "tabela-padrao";
-    }
+  realTables.forEach((table) => {
+    table.className = "tabela-padrao";
 
+    // Remove 'p' tags inside table cells
     const cells = table.querySelectorAll("tr > * > p");
-
     cells.forEach((cell) => {
       const html = cell.innerHTML.trim();
       const fragment = document.createRange().createContextualFragment(html);

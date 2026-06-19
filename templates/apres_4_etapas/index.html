@@ -32,12 +32,39 @@
     <script defer src="../js/progressbar.min.js"></script>
     <script defer src="../js/main.js"></script>
     <script src="../js/lazysizes.min.js"></script>
-    <script type="module" src="../../src/main.ts"></script>
+
+    <link rel="stylesheet" href="index.css" />
   </head>
   <body>
     <main>
-      <div class="content-text"></div>
+      <section class="m-6">
+        <div class="mx-auto w-[70%]">
+          <h1 class="font-bold">CONVERSÃO DE TRILHAS</h1>
+          <h2 class="font-bold">WORD (DOCX) => HTML</h2>
+
+          <div class="mt-6 flex items-center gap-2">
+            <p>Adicionar arquivo word (roteiro):</p>
+
+            <label
+              class="cursor-pointer underline rounded-xl select-none bg-gray-200 p-2 hover:opacity-50"
+              for="arquivo"
+              >Arquivo
+              <input
+                multiple
+                accept=".doc,.docx,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+                type="file"
+                class="hidden cursor-pointer"
+                id="arquivo"
+              />
+            </label>
+          </div>
+        </div>
+      </section>
     </main>
+
+    <div>
+      <div class="content-text reset-element"></div>
+    </div>
     <script type="module" src="/src/main.ts"></script>
   </body>
 </html>

@@ -10,16 +10,23 @@ export function handleAllElements() {
     "SCRIPT",
     "IFRAME",
   ];
+  const textsToRemove = ["ponto", "Bons estudos!", "Bons estudos"];
 
   elements.forEach((element) => {
-    if (element.textContent === "Bons estudos!") {
-      element.remove();
-    }
+    // Remove selected texts
+    textsToRemove.forEach(
+      (text) =>
+        element.textContent.trim().toLowerCase() ===
+          text.trim().toLowerCase() && element.remove(),
+    );
 
-    if (!excludedTags.includes(element.tagName)) {
-      if (element.textContent.trim() === "" && element.children.length === 0) {
-        element.remove();
-      }
+    // Remove empty tags
+    if (
+      !excludedTags.includes(element.tagName) &&
+      element.textContent.trim() === "" &&
+      element.children.length === 0
+    ) {
+      element.remove();
     }
   });
 }

@@ -10,19 +10,15 @@ export function getMetaData() {
   let code = "";
   let titleName = "";
 
-  metadata.forEach((el) => {
-    const [key, value] = el;
+  metadata.forEach(([key, value]) => {
     switch (key) {
       case "Nome da Disciplina":
         titleName = value.trim();
 
-        // Remove code (...)
+        // Excluded code (código da disciplina)
         const codeRegex = /\s\([\dA-Za-z]*\)/gi;
-
-        if (codeRegex.test(value)) {
+        if (codeRegex.test(value))
           titleName = value.replace(codeRegex, "").trim();
-        }
-
         break;
       case "Código da Disciplina":
         code = value.trim();

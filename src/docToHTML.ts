@@ -1,6 +1,10 @@
 import mammoth from "mammoth";
+import { contentHost, templateFile } from "./main";
 
-export async function docToHTML(host: HTMLElement, fileSource: string) {
+export async function docToHTML() {
+  const fileSource = templateFile;
+  const host = contentHost;
+
   try {
     let arrayBuffer: ArrayBuffer;
 
