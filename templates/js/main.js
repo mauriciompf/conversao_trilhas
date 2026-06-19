@@ -3289,7 +3289,7 @@ async function initPage() {
   initAvisoLaboratorio();
   addActiveToFirstRadioButton();
   createAnimationInPagesBg();
-  showNewLayoutModal();
+  // showNewLayoutModal();
 }
 initPage();
 window.addEventListener("scroll", updatePageLayoutOnScroll);

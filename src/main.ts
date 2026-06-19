@@ -1,25 +1,75 @@
+import { dataURLtoFile } from "./dataURLtoFile";
 import { docToHTML } from "./docToHTML";
+import { fileToDataURL } from "./fileToDataURL";
 import { processHTML } from "./processHTML";
-import { saveAs } from "./saveAs";
+
+export const templateFile =
+  "/docs/Prática Pedagógica Interdisciplinar Conceitos da Geografia (178524).docx";
 
 export const contentHost = document.querySelector(
   ".content-text",
 ) as HTMLDivElement;
 
-export const templateFile =
-  "/docs/Prática Pedagógica Interdisciplinar Conceitos da Geografia (178524).docx";
-
 const fileInput = document.querySelector(
   "input[type='file']",
 ) as HTMLInputElement;
+
+const removeFileBtn = document.querySelector(
+  ".removeFileBtn",
+) as HTMLButtonElement;
+
+window.addEventListener("load", async () => {
+  // Retrieve the stored data URL and the original file name
+  const storedDataURL = localStorage.getItem("fileDataURL");
+  const storedFileName = localStorage.getItem("fileName");
+
+  if (storedDataURL && storedFileName) {
+    const file = dataURLtoFile(storedDataURL, storedFileName);
+    await docToHTML(file);
+    await processHTML();
+
+    removeFileBtn.classList.remove("opacity-50");
+  }
+});
 
 fileInput.addEventListener("change", async (event: Event) => {
   const target = event.target as HTMLInputElement;
   const file = target.files?.[0]; // Get file input
 
-  if (file) {
+  if (!file) return;
+
+  // Check size (5MB)
+  const sizeLimit = 5 * 1024;
+  const isLimitReached = file.size > sizeLimit;
+
+  if (isLimitReached) {
+    console.warn(
+      "Documento ultrassou o limite de tamanho estabelecido: ",
+      `${sizeLimit}MB`,
+    );
+  }
+
+  try {
+    // Store file as binary data and file name
+    const dataURL = await fileToDataURL(file); // Convert to base64
+    localStorage.setItem("fileDataURL", dataURL);
+    localStorage.setItem("fileName", file.name);
+
     await docToHTML(file); // Convert doc file to HTML
     await processHTML(); // Edited HTML
-    await saveAs(); // Ctrl + s => save as .zip (wrap content)
+
+    removeFileBtn.classList.remove("opacity-50");
+  } catch (err) {
+    console.error("Failed to store or process file:", err);
   }
+});
+
+removeFileBtn.addEventListener("click", () => {
+  localStorage.removeItem("fileDataURL");
+  localStorage.removeItem("fileName");
+
+  fileInput.value = "";
+  contentHost.innerHTML = "";
+
+  removeFileBtn.classList.add("opacity-50");
 });

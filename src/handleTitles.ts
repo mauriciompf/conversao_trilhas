@@ -26,9 +26,13 @@ export function handleTitles() {
   });
 
   const titles = [...pTags].filter((pTag) => {
+    const hasStrongDirectChild = [...pTag.children].some(
+      (child) => child.tagName === "STRONG",
+    );
+
     const titleConditions =
-      pTag.querySelector("strong") &&
-      pTag.textContent.length < 80 &&
+      hasStrongDirectChild &&
+      pTag.textContent.length < 70 &&
       !pTag.hasAttribute("class");
 
     return titleConditions;
