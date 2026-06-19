@@ -1,5 +1,7 @@
+import { contentHost } from "./main";
+
 export function adjustIframes() {
-  const iframeEmbeds = selfContent.querySelectorAll(
+  const iframeEmbeds = contentHost.querySelectorAll(
     "iframe",
   ) as NodeListOf<HTMLIFrameElement>;
 
