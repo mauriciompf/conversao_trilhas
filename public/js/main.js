@@ -3092,8 +3092,6 @@ function initAvisoLaboratorio() {
   }
 }
 
-console.log(currentPage);
-
 //aviso de novo layout das trilhas na tela de início
 function showNewLayoutModal() {
   if (currentPage === "inicio.html" || currentPage === "") {

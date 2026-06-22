@@ -5,14 +5,19 @@ export function handleYTVideo() {
     "p",
   ) as NodeListOf<HTMLParagraphElement>;
 
-  const YTLinksElem = [...pTags].filter((pTag) =>
-    YTLinkRegex.test(pTag.innerText),
+  const YTLinksElems = [...pTags].filter((pTag) =>
+    YTLinkRegex.test(pTag.innerHTML),
   );
 
-  YTLinksElem.forEach((linkElem) => {
-    // console.log(linkElem);
-    const text = linkElem.innerHTML.replace(YTLinkRegex, "");
+  YTLinksElems.forEach((linkElem) => {
     const link = linkElem.innerHTML.match(YTLinkRegex)![0];
+    let text = linkElem.innerText;
+
+    if (YTLinkRegex.test(text)) {
+      const prevElem = linkElem.previousElementSibling as HTMLElement;
+      text = prevElem.innerHTML;
+      prevElem.remove();
+    }
 
     const url = new URL(link);
     const linkFormmated =
@@ -44,7 +49,7 @@ export function handleYTVideo() {
     divLargeVideo.className = "video-large";
 
     const iframe = document.createElement("iframe") as HTMLIFrameElement;
-    iframe.className = "lazyload";
+    iframe.className = " lazyload";
     iframe.title = /Cápsula do Conhecimento/gi.test(text)
       ? "Capsula de conhecimento"
       : "Video do youtube";

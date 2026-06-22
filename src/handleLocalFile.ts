@@ -19,7 +19,10 @@ export function handleLocalFile() {
     if (!previousFileNameWrap && fileNameWrap.closest(".dica-leitura")) return; // Skip if already inside a dica-leitura wrapper
 
     // Wrap (paragraph + file link) elements if previous element file link is 'p' tag
-    if (previousFileNameWrap.tagName === "P") {
+    if (
+      previousFileNameWrap.tagName === "P" ||
+      previousFileNameWrap.tagName === "UL"
+    ) {
       createDicaWrapper(
         previousFileNameWrap,
         fileNameWrap,

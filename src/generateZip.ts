@@ -1,7 +1,7 @@
 import JSZip from "jszip";
 import { buildHTMLContent } from "./buildHTMLContent";
 import { getMetaData } from "./getMetadata";
-import { imageConverter } from "./imageConverter";
+// import { imageConverter } from "./imageConverter";
 import { fileNameConverter } from "./fileNameConverter";
 
 export async function generateZip() {
@@ -17,7 +17,10 @@ export async function generateZip() {
 
     zip.file("css/style.css", cssText); // css/...
     zip.folder("materiais"); // materiais/...
-    await imageConverter(zip, ["img/atencao.png", "img/atendimento.png"]); // img/...
+    // await imageConverter(zip, [
+    //   "/placeholder_4etapas/img/atencao.png",
+    //   "/placeholder_4etapas/img/atendimento.png",
+    // ]); // img/...
 
     const responseInicio = await fetch("/placeholder_4etapas/inicio.html");
     if (!responseInicio) throw new Error("Failed to fetch");

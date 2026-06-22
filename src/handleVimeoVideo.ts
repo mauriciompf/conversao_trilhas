@@ -6,7 +6,7 @@ export function handleVimeoVideo() {
   ) as NodeListOf<HTMLParagraphElement>;
 
   const pTagVimeoElems = [...pTags].filter((pTag) =>
-    vimeoRegex.test(pTag.innerText),
+    vimeoRegex.test(pTag.innerHTML),
   );
 
   [...pTagVimeoElems].forEach((element) => {
@@ -16,7 +16,7 @@ export function handleVimeoVideo() {
     if (element.innerHTML.match(vimeoRegex)) {
       vimeoLink =
         "https://player.vimeo.com/video/" +
-        element.innerText
+        element.innerHTML
           .match(/\.com\/([^?]+)/gi)![0]
           .replace(".com/", "")
           .replace("/", "?h=");
