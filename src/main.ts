@@ -34,8 +34,6 @@ window.addEventListener("load", async () => {
     removeFileBtn.classList.remove("opacity-50");
     downloadBtn.classList.remove("opacity-50");
   }
-
-  console.log(contentHost.outerHTML);
 });
 
 fileInput.addEventListener("change", async (event: Event) => {

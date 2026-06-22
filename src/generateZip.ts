@@ -10,7 +10,7 @@ export async function generateZip() {
   const { titleName, code } = getMetaData();
 
   try {
-    const response = await fetch("/css/style.css");
+    const response = await fetch("/placeholder_4etapas/css/style.css");
     if (!response) throw new Error("Failed to fetch");
 
     const cssText = await response.text();
@@ -19,11 +19,11 @@ export async function generateZip() {
     zip.folder("materiais"); // materiais/...
     await imageConverter(zip, ["img/atencao.png", "img/atendimento.png"]); // img/...
 
-    const responseInicio = await fetch("/inicio.html");
+    const responseInicio = await fetch("/placeholder_4etapas/inicio.html");
     if (!responseInicio) throw new Error("Failed to fetch");
 
     const inicioString = await responseInicio.text();
-    const inicioText = inicioString.replaceAll("template", titleName);
+    const inicioText = inicioString.replaceAll("templateCode", titleName);
 
     zip.file("inicio.html", inicioText);
 

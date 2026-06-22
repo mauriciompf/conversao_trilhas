@@ -20,7 +20,7 @@ export async function buildHTMLContent(zip: any, fileNames: string[]) {
       const { titleName } = getMetaData();
 
       // Fetch .html
-      const response = await fetch(`/${filename}.html`);
+      const response = await fetch(`/placeholder_4etapas/${filename}.html`);
       if (!response) throw new Error("Failed to fetch");
 
       const contentString = (await response.text()).replaceAll(
