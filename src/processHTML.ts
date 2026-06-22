@@ -12,7 +12,7 @@ import { handleYTVideo } from "./handleYTVideo";
 import { saveAs } from "./saveAs";
 
 export async function processHTML() {
-  await saveAs(); // Ctrl + s => save as .zip (wrap content)
+  saveAs(); // Ctrl + s => save as .zip (wrap content)
 
   adjustComments();
   adjustSections();

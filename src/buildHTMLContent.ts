@@ -44,8 +44,8 @@ export async function buildHTMLContent(zip: any, fileNames: string[]) {
 
       iframeEmbeds.forEach((iframe) => {
         if (
-          iframe.className === " lazyloading" ||
-          iframe.className === " lazyloaded"
+          iframe.className === "lazyloading" ||
+          iframe.className === "lazyloaded"
         ) {
           iframe.className = "lazyload";
         }

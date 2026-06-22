@@ -2,6 +2,7 @@ import { dataURLtoFile } from "./dataURLtoFile";
 import { docToHTML } from "./docToHTML";
 import { fileToDataURL } from "./fileToDataURL";
 import { processHTML } from "./processHTML";
+import { generateZip } from "./generateZip";
 
 export const templateFile =
   "/docs/Prática Pedagógica Interdisciplinar Conceitos da Geografia (178524).docx";
@@ -18,6 +19,8 @@ const removeFileBtn = document.querySelector(
   ".removeFileBtn",
 ) as HTMLButtonElement;
 
+const downloadBtn = document.querySelector(".downloadBtn") as HTMLButtonElement;
+
 window.addEventListener("load", async () => {
   // Retrieve the stored data URL and the original file name
   const storedDataURL = localStorage.getItem("fileDataURL");
@@ -29,7 +32,10 @@ window.addEventListener("load", async () => {
     await processHTML();
 
     removeFileBtn.classList.remove("opacity-50");
+    downloadBtn.classList.remove("opacity-50");
   }
+
+  console.log(contentHost.outerHTML);
 });
 
 fileInput.addEventListener("change", async (event: Event) => {
@@ -39,13 +45,13 @@ fileInput.addEventListener("change", async (event: Event) => {
   if (!file) return;
 
   // Check size (5MB)
-  const sizeLimit = 5 * 1024;
+  const sizeLimit = 5 * 1000;
   const isLimitReached = file.size > sizeLimit;
 
   if (isLimitReached) {
     console.warn(
-      "Documento ultrassou o limite de tamanho estabelecido: ",
-      `${sizeLimit}MB`,
+      "Documento ultrassou o limite de tamanho estabelecido:",
+      `${sizeLimit / 1000}MB`,
     );
   }
 
@@ -59,6 +65,7 @@ fileInput.addEventListener("change", async (event: Event) => {
     await processHTML(); // Edited HTML
 
     removeFileBtn.classList.remove("opacity-50");
+    downloadBtn.classList.remove("opacity-50");
   } catch (err) {
     console.error("Failed to store or process file:", err);
   }
@@ -72,4 +79,9 @@ removeFileBtn.addEventListener("click", () => {
   contentHost.innerHTML = "";
 
   removeFileBtn.classList.add("opacity-50");
+  downloadBtn.classList.remove("opacity-50");
+});
+
+downloadBtn.addEventListener("click", () => {
+  if (fileInput.value) generateZip();
 });

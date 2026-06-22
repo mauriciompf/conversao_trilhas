@@ -1,0 +1,30 @@
+.popup-material {
+    position: fixed;
+    height: 100%;
+    width: 100%;
+    box-sizing: border-box;
+    background: rgba(0, 0, 0, 0.9);
+    z-index: 10;
+    padding: 80px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.popup-material button {
+    margin-top: 20px;
+    border-radius: 50px;
+    background-color: var(--uniasselvi-yellow);
+    padding: 10px 20px;
+    border: 0;
+    box-shadow: 0 2px 3px rgba(0, 0, 0, 0.5);
+    cursor: pointer;
+}
+
+
+@media only screen and (max-width:600px) {
+    .popup-material {
+        padding: 10px;
+    }
+}
