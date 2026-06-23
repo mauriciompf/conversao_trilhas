@@ -7,8 +7,8 @@ export function adjustIframes() {
 
   iframeEmbeds.forEach((iframe) => {
     if (
-      iframe.className === " lazyloading" ||
-      iframe.className === " lazyloaded"
+      iframe.className === "lazyloading" ||
+      iframe.className === "lazyloaded"
     ) {
       iframe.className = "lazyload";
     }

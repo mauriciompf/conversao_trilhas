@@ -123,6 +123,7 @@ code {
 
 .tabela-padrao th,
 .tabela-padrao td {
+  line-height: 2;
   padding: 10px 20px;
 }
 

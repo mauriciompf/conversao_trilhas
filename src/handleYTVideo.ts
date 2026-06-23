@@ -49,10 +49,8 @@ export function handleYTVideo() {
     divLargeVideo.className = "video-large";
 
     const iframe = document.createElement("iframe") as HTMLIFrameElement;
-    iframe.className = " lazyload";
-    iframe.title = /Cápsula do Conhecimento/gi.test(text)
-      ? "Capsula de conhecimento"
-      : "Video do youtube";
+    iframe.className = "lazyload";
+    iframe.title = "Video do youtube";
     iframe.width = "1280";
     iframe.height = "720";
     iframe.setAttribute("data-src", linkFormmated);
