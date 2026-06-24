@@ -14,14 +14,14 @@ export function handleTitles() {
     };
     const existingHeadings = Object.entries(headings);
 
-    // Replace every heading by paragraph with class 'titulo-secao' (title)
+    // Replace every heading with a paragraph of class 'titulo-secao' (title)
     existingHeadings
       .filter(([_, heading]) => heading !== null)
-      .forEach(([tagName, heading]) => {
-        const replacedHTML = heading.outerHTML
-          .replace(`<${tagName}>`, "<p class='titulo-secao'>")
-          .replace(`</${tagName}>`, "</p>");
-        heading.outerHTML = replacedHTML;
+      .forEach(([_, heading]) => {
+        const p = document.createElement("p");
+        p.className = "titulo-secao";
+        p.innerHTML = heading.innerHTML;
+        heading.replaceWith(p);
       });
   });
 

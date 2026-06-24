@@ -10,54 +10,41 @@ export async function buildHTMLContent(zip: any, fileNames: string[]) {
   try {
     if (sections.length !== fileNames.length) {
       throw new Error(
-        `Number of sections (${sections.length}) doesn't match number of files (${fileNames.length})`,
+        `Number of sections (${sections.length}) doesn't match number of files (${fileNames.length}).`,
       );
     }
 
-    for (let i = 0; i < Math.min(sections.length, fileNames.length); i++) {
+    for (let i = 0; i < sections.length; i++) {
       const filename = fileNames[i];
       const section = sections[i];
       const { titleName } = getMetaData();
 
-      // Fetch .html
-      const response = await fetch(`/placeholder_4etapas/${filename}.html`);
-      if (!response) throw new Error("Failed to fetch");
+      // Fetch .html from /public
+      const response = await fetch(
+        `/placeholder_4etapas/${filename.trim()}.html`,
+      );
+      if (!response) throw new Error("Failed to fetch.");
 
+      // Get HTML as string and add title name
       const contentString = (await response.text()).replaceAll(
         "templateCode",
         titleName,
       );
 
-      // Converter to HTML
+      // Converter string to HTML
       const parser = new DOMParser();
-      const doc = parser.parseFromString(contentString, "text/html");
+      const contentHTML = parser.parseFromString(contentString, "text/html");
 
-      // Add contentWrapper (section) to html template
-      const contentWrapper = doc.querySelector(
+      const contentText = contentHTML.querySelector(
         ".content-text",
       ) as HTMLDivElement;
 
-      // Process iframes in this specific section
-      const iframeEmbeds = section.querySelectorAll(
-        "iframe",
-      ) as NodeListOf<HTMLIFrameElement>;
-
-      iframeEmbeds.forEach((iframe) => {
-        if (
-          iframe.className === "lazyloading" ||
-          iframe.className === "lazyloaded"
-        ) {
-          iframe.className = "lazyload";
-        }
-      });
-
-      // Clone and append all child nodes from this section
       section.childNodes.forEach((childNode) => {
-        const clonedNode = childNode.cloneNode(true);
-        contentWrapper.appendChild(clonedNode);
+        const clonedNode = childNode.cloneNode(true); // Clone all child nodes from each section
+        contentText.appendChild(clonedNode); // Append all child node into the 'contentText' div
       });
 
-      const HTMLString = doc.querySelector("html")?.outerHTML as string; // Whole content
+      const HTMLString = contentHTML.querySelector("html")?.outerHTML as string; // Whole content string
 
       // Prettier formatted
       const HTMLFormatted = await prettier.format(HTMLString, {

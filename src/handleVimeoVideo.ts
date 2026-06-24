@@ -1,4 +1,4 @@
-import { vimeoRegex } from "./data";
+import { vimeoPattern } from "./regexConstants";
 
 export function handleVimeoVideo() {
   const pTags = document.querySelectorAll(
@@ -6,14 +6,15 @@ export function handleVimeoVideo() {
   ) as NodeListOf<HTMLParagraphElement>;
 
   const pTagVimeoElems = [...pTags].filter((pTag) =>
-    vimeoRegex.test(pTag.innerHTML),
+    vimeoPattern.test(pTag.innerHTML),
   );
 
   [...pTagVimeoElems].forEach((element) => {
-    const text = element.innerHTML.replace(vimeoRegex, "");
+    // console.log(element.outerHTML);
+    const text = element.innerText;
     let vimeoLink = "";
 
-    if (element.innerHTML.match(vimeoRegex)) {
+    if (element.innerHTML.match(vimeoPattern)) {
       vimeoLink =
         "https://player.vimeo.com/video/" +
         element.innerHTML

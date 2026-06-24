@@ -1,3 +1,4 @@
+import { codePattern } from "./regexConstants";
 import { tableToJson } from "./tableToJson";
 
 export function getMetaData() {
@@ -15,10 +16,9 @@ export function getMetaData() {
       case "Nome da Disciplina":
         titleName = value.trim();
 
-        // Excluded code (código da disciplina)
-        const codeRegex = /\s\([\dA-Za-z]*\)/gi;
-        if (codeRegex.test(value))
-          titleName = value.replace(codeRegex, "").trim();
+        if (codePattern.test(value)) {
+          titleName = value.replace(codePattern, "").trim(); // Remove code (código da disciplina)
+        }
         break;
       case "Código da Disciplina":
         code = value.trim();

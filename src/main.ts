@@ -3,9 +3,7 @@ import { docToHTML } from "./docToHTML";
 import { fileToDataURL } from "./fileToDataURL";
 import { processHTML } from "./processHTML";
 import { generateZip } from "./generateZip";
-
-export const templateFile =
-  "/docs/Prática Pedagógica Interdisciplinar Conceitos da Geografia (178524).docx";
+import { docPattern } from "./regexConstants";
 
 export const contentHost = document.querySelector(
   ".content-text",
@@ -54,6 +52,8 @@ fileInput.addEventListener("change", async (event: Event) => {
   }
 
   try {
+    if (!file.name.match(docPattern)) throw new Error("Extesion not valid!");
+
     // Store file as binary data and file name
     const dataURL = await fileToDataURL(file); // Convert to base64
     localStorage.setItem("fileDataURL", dataURL);
@@ -65,7 +65,7 @@ fileInput.addEventListener("change", async (event: Event) => {
     removeFileBtn.classList.remove("opacity-50");
     downloadBtn.classList.remove("opacity-50");
   } catch (err) {
-    console.error("Failed to store or process file:", err);
+    console.error("Failed to store or process file,", err);
   }
 });
 

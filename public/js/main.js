@@ -3254,8 +3254,8 @@ function createAnimationInPagesBg() {
 }
 
 async function initPage() {
-  criaVlibrasNode();
-  importaScriptVlibras();
+  // criaVlibrasNode();
+  // importaScriptVlibras();
   await identificaAcademico();
   redirectToTarget();
   loadAdditionalFonts();

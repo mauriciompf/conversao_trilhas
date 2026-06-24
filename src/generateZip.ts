@@ -10,26 +10,26 @@ export async function generateZip() {
   const { titleName, code } = getMetaData();
 
   try {
-    const response = await fetch("/placeholder_4etapas/css/style.css");
-    if (!response) throw new Error("Failed to fetch");
-
-    const cssText = await response.text();
-
-    zip.file("css/style.css", cssText); // css/...
     zip.folder("materiais"); // materiais/...
+
+    const responseCss = await fetch("/placeholder_4etapas/css/style.css");
+    if (!responseCss) throw new Error("Failed to fetch 'style.css'");
+    const cssText = await responseCss.text();
+    zip.file("css/style.css", cssText); // css/...
+
+    // ! VERIFICAR PASTA /IMG
     // await imageConverter(zip, [
     //   "/placeholder_4etapas/img/atencao.png",
     //   "/placeholder_4etapas/img/atendimento.png",
     // ]); // img/...
 
     const responseInicio = await fetch("/placeholder_4etapas/inicio.html");
-    if (!responseInicio) throw new Error("Failed to fetch");
-
+    if (!responseInicio) throw new Error("Failed to fetch 'inicio.html'");
     const inicioString = await responseInicio.text();
     const inicioText = inicioString.replaceAll("templateCode", titleName);
-
     zip.file("inicio.html", inicioText);
 
+    // Apresentacao + 4 etapas
     await buildHTMLContent(zip, [
       "apresentacao",
       "etapa_i",
@@ -39,7 +39,6 @@ export async function generateZip() {
     ]);
 
     const generateZipAsBlob = await zip.generateAsync({ type: "blob" });
-
     const url = URL.createObjectURL(generateZipAsBlob);
     const link = document.createElement("a") as HTMLAnchorElement;
     link.href = url;

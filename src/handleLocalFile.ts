@@ -4,44 +4,48 @@ export function handleLocalFile() {
   const supComments = document.querySelectorAll(
     "sup.file",
   ) as NodeListOf<HTMLElement>;
-  const commentTexts = document.querySelectorAll(
+  const commentTextsElem = document.querySelectorAll(
     "dd",
   ) as NodeListOf<HTMLElement>;
 
-  supComments.forEach((supComment, index) => {
-    const fileNameWrap = supComment.closest("P") as HTMLElement;
+  if (commentTextsElem.length !== supComments.length) {
+    throw new Error(
+      `Number of commentText 'dd' element (${commentTextsElem.length}) doesn't match number of supComments 'sup' element (${supComments.length}).`,
+    );
+  }
 
-    if (!fileNameWrap) return;
+  supComments.forEach((supComment, index) => {
+    const fileNameWrapElem = supComment.closest("P") as HTMLElement;
+    const commentTexts = commentTextsElem[index].innerText;
+
+    if (!fileNameWrapElem) return;
 
     const previousFileNameWrap =
-      fileNameWrap.previousElementSibling as HTMLElement;
+      fileNameWrapElem.previousElementSibling as HTMLElement;
 
-    if (!previousFileNameWrap && fileNameWrap.closest(".dica-leitura")) return; // Skip if already inside a dica-leitura wrapper
+    if (!previousFileNameWrap && fileNameWrapElem.closest(".dica-leitura"))
+      return; // Skip if already inside a 'dica-leitura' wrapper
 
-    // Wrap (paragraph + file link) elements if previous element file link is 'p' tag
+    // Wrap (paragraph + local file link) elements if previous element local file link is a 'p' or 'ul' element
     if (
       previousFileNameWrap.tagName === "P" ||
       previousFileNameWrap.tagName === "UL"
     ) {
-      createDicaWrapper(
-        previousFileNameWrap,
-        fileNameWrap,
-        commentTexts[index].innerText,
-      );
+      createDicaWrapper(previousFileNameWrap, fileNameWrapElem, commentTexts);
     }
 
-    // if previous element file link is not 'p' tag and is 'dica-leitura' wrapper
+    // if previous element local file link is not 'p' element and is a 'dica-leitura' wrapper
     if (
       previousFileNameWrap.tagName !== "P" &&
       previousFileNameWrap.classList.contains("dica-leitura")
     ) {
       const placeholder = document.createElement("p");
-      fileNameWrap.parentNode!.insertBefore(placeholder, fileNameWrap);
+      fileNameWrapElem.parentNode!.insertBefore(placeholder, fileNameWrapElem);
 
       createDicaWrapper(
         previousFileNameWrap,
-        fileNameWrap,
-        commentTexts[index].innerText,
+        fileNameWrapElem,
+        commentTexts,
         placeholder,
       );
     }

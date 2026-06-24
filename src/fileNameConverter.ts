@@ -1,13 +1,7 @@
 export function fileNameConverter(
   fileName: string,
-  fileLength: "short" | "default" = "default",
+  filenameLength: "short" | "default" = "default",
 ) {
-  if (typeof fileName !== "string")
-    throw new Error("TypeError, value type is not string");
-
-  if (fileName.length >= 100)
-    throw new Error("Length characters limit reached (100 characters)");
-
   // Format file name
   if (/[A-Z]+/g.test(fileName)) {
     fileName = fileName.toLowerCase().trim();
@@ -30,14 +24,14 @@ export function fileNameConverter(
     fileName = fileName.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
   }
 
-  // Add "_" after 'code number' (exception) (code + text)
+  // Add "_" after 'code number' (code + text)
   if (/^([A-Za-z]*[0-9]+)(?=[a-z])/g.test(fileName)) {
     const formatCode = fileName.match(/^([A-Za-z]*[0-9]+)(?=[a-z])/g)![0] + "_";
     const text = fileName.split(/^([A-Za-z]*[0-9]+)(?=[a-z])/g)[2];
     fileName = formatCode.toUpperCase() + text;
   }
 
-  switch (fileLength) {
+  switch (filenameLength) {
     case "short":
       const shortFileName = fileName
         .split("_")

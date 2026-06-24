@@ -1,11 +1,11 @@
 import { adjustComments } from "./adjustComments";
 import { adjustSections } from "./adjustSections";
-import { assemblyLocalFiles } from "./assemblyLocalFile";
+import { assemblyLocalFiles } from "./assemblyLocalFiles";
 import { handleAllElements } from "./handleAllElements";
 import { handleFakeTables } from "./handleFakeTables";
-import { handleHyperLinks } from "./handleHyperLink";
+import { handleHyperLinks } from "./handleHyperLinks";
 import { handleLocalFile } from "./handleLocalFile";
-import { handleTable } from "./handleTable";
+import { handleTables } from "./handleTables";
 import { handleTitles } from "./handleTitles";
 import { handleVimeoVideo } from "./handleVimeoVideo";
 import { handleYTVideo } from "./handleYTVideo";
@@ -20,7 +20,7 @@ export async function processHTML() {
   handleVimeoVideo();
   handleYTVideo();
   handleHyperLinks();
-  handleTable();
+  handleTables();
   handleTitles();
   handleFakeTables();
   assemblyLocalFiles();

@@ -1,5 +1,5 @@
 export function handleAllElements() {
-  const elements = document.querySelectorAll("*");
+  const elements = document.querySelectorAll("*") as NodeListOf<HTMLElement>;
   const excludedTags = [
     "IMG",
     "INPUT",
@@ -20,7 +20,7 @@ export function handleAllElements() {
           text.trim().toLowerCase() && element.remove(),
     );
 
-    // Remove empty tags
+    // ! Remove empty tags
     if (
       !excludedTags.includes(element.tagName) &&
       element.textContent.trim() === "" &&

@@ -1,4 +1,4 @@
-export function handleTable() {
+export function handleTables() {
   const tables = document.querySelectorAll(
     "table",
   ) as NodeListOf<HTMLTableElement>;
@@ -8,7 +8,7 @@ export function handleTable() {
   realTables.forEach((table) => {
     table.className = "tabela-padrao";
 
-    // Remove 'p' tags inside table cells
+    // Remove 'p' element inside table cells
     const cells = table.querySelectorAll("tr > * > p");
     cells.forEach((cell) => {
       const html = cell.innerHTML.trim();

@@ -36,60 +36,57 @@
     <script src="/js/lazysizes.min.js"></script>
 
     <link rel="stylesheet" href="index.css" />
+
+    <script type="module" src="/src/main.ts"></script>
   </head>
   <body>
-    <div>
-      <div>
-        <div
-          class="fixed top-0 right-0 left-0 z-50 border-b-2 border-yellow-500 bg-white shadow-md"
-        >
-          <div class="container mx-auto px-4 py-3">
-            <div class="flex flex-wrap items-center gap-2">
-              <h1 class="text-xl! font-bold">CONVERSÃO DE TRILHAS</h1>
-              <span>|</span>
+    <!-- Config -->
+    <div
+      class="fixed top-0 right-0 left-0 z-50 border-b-2 border-yellow-500 bg-white shadow-md"
+    >
+      <div class="grid place-items-center px-4 py-3">
+        <div class="flex flex-wrap items-center gap-2">
+          <h1 class="text-xl! font-bold">CONVERSÃO DE TRILHAS</h1>
+          <span>|</span>
 
-              <label
-                class="cursor-pointer rounded-xl bg-gray-200 px-6 py-2 underline select-none hover:bg-gray-300 focus:bg-gray-300"
-                for="arquivo"
-                >Adicionar Arquivo
-                <input
-                  accept=".doc,.docx,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document"
-                  type="file"
-                  class="hidden"
-                  id="arquivo"
-                />
-              </label>
+          <label
+            class="cursor-pointer rounded-xl bg-gray-200 px-6 py-2 underline select-none hover:bg-gray-300 focus:bg-gray-300"
+            for="arquivo"
+            >Adicionar Arquivo
+            <input
+              accept=".doc,.docx,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+              type="file"
+              class="hidden"
+              id="arquivo"
+            />
+          </label>
 
-              <button
-                type="button"
-                class="removeFileBtn cursor-pointer rounded-xl bg-gray-200 px-6 py-2 underline opacity-50 select-none hover:bg-gray-300 focus:bg-gray-300"
-              >
-                Excluir Arquivo Atual
-              </button>
+          <button
+            type="button"
+            class="removeFileBtn cursor-pointer rounded-xl bg-gray-200 px-6 py-2 underline opacity-50 select-none hover:bg-gray-300 focus:bg-gray-300"
+          >
+            Excluir Arquivo Atual
+          </button>
 
-              <span>|</span>
+          <span>|</span>
 
-              <button
-                type="button"
-                class="downloadBtn cursor-pointer rounded-xl bg-gray-200 px-6 py-2 underline opacity-50 select-none hover:bg-gray-300 focus:bg-gray-300"
-              >
-                Baixar trilha
-              </button>
+          <button
+            type="button"
+            class="downloadBtn cursor-pointer rounded-xl bg-gray-200 px-6 py-2 underline opacity-50 select-none hover:bg-gray-300 focus:bg-gray-300"
+          >
+            Baixar trilha
+          </button>
 
-              <span>|</span>
+          <span>|</span>
 
-              <h2 class="text-sm">WORD (DOCX, DOC) => HTML</h2>
-            </div>
-          </div>
+          <h2 class="text-sm">WORD (DOCX, DOC) => HTML</h2>
         </div>
       </div>
     </div>
 
     <!-- Host -->
-    <div class="mt-25">
+    <div class="pt-25">
       <div class="content-text reset-element"></div>
     </div>
-
-    <script type="module" src="/src/main.ts"></script>
   </body>
 </html>

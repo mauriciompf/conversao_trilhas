@@ -1,8 +1,8 @@
-import { URLRegex } from "./data";
+import { gDocPattern, urlPattern } from "./regexConstants";
 
 export function createDicaWrapper(
   prevElem: HTMLElement,
-  fileName: HTMLElement,
+  fileNameWrapperElem: HTMLElement,
   commentText: string,
   placeholder?: HTMLElement,
 ) {
@@ -12,49 +12,47 @@ export function createDicaWrapper(
   img.src = "../img/ico/dica_d_outline.svg";
   img.alt = "Dica de Leitura";
 
-  // Wrap prev + link to local file
+  // Wrap local file link and prev element
   if (placeholder) {
     placeholder.parentNode?.insertBefore(wrapper, placeholder);
   } else {
     prevElem.parentNode?.insertBefore(wrapper, prevElem);
   }
 
-  const a = document.createElement("a") as HTMLAnchorElement;
+  const linkElement = document.createElement("a") as HTMLAnchorElement;
   const commentTextFormmated = commentText.replace("↑", "").trim();
   const commentTextLink = "materiais/" + commentTextFormmated;
-  a.href = commentTextLink;
+  linkElement.href = commentTextLink;
 
-  // GDOC links
-  const gDocRegex = /673|21|231|89|521/g;
-  if (commentText.match(gDocRegex)) {
-    a.removeAttribute("href");
-    a.setAttribute(
+  // Comment contains GDOC
+  if (commentText.match(gDocPattern)) {
+    linkElement.removeAttribute("href");
+    linkElement.setAttribute(
       "data-gdoc",
-      commentText.match(gDocRegex)!.filter((e) => e.match(/\d+/))![0],
-    ); // Set code exclude texts
+      commentText.match(gDocPattern)!.filter((e) => e.match(/\d+/))![0],
+    ); // Set code and exclude texts
   }
 
-  // Hyperlinks
-  if (commentText.match(URLRegex)) {
-    a.href = commentTextFormmated;
-  }
+  // Comment contains only hyperLink
+  if (commentText.match(urlPattern)) linkElement.href = commentTextFormmated;
 
-  a.target = "_blank";
-  a.className = "content-link flex-c";
+  linkElement.target = "_blank";
+  linkElement.className = "content-link flex-c";
 
   const i = document.createElement("i");
   i.className = "material-icons";
   i.textContent = "description";
 
   const span = document.createElement("span") as HTMLSpanElement;
-  span.appendChild(fileName);
-  fileName.replaceWith(...fileName.childNodes); // Remove 'p' tag (unwrap)
+  span.appendChild(fileNameWrapperElem);
 
-  a.append(i, span);
+  fileNameWrapperElem.replaceWith(...fileNameWrapperElem.childNodes); // Replace parent element to child nodes (unwrap)
+
+  linkElement.append(i, span);
 
   if (placeholder) {
-    wrapper.append(img, placeholder, a);
+    wrapper.append(img, placeholder, linkElement);
   } else {
-    wrapper.append(img, prevElem, a);
+    wrapper.append(img, prevElem, linkElement);
   }
 }

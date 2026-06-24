@@ -8,9 +8,9 @@ export function handleFakeTables() {
       "table",
     ) as NodeListOf<HTMLTableElement>;
 
+    // Replace every 'fake table' from doc
     const fakeTables = [...tables].filter((table) => table.rows.length <= 3);
 
-    // Replace every 'fake table' from docx
     fakeTables.forEach((table) => {
       const isNested =
         table.querySelector(".dica-leitura") || table.querySelector(".video"); // Local files & embedded videos
@@ -23,7 +23,7 @@ export function handleFakeTables() {
         table.outerHTML = replacedHTML;
       }
 
-      // Outline emphasis
+      // Outline emphasis div
       const replacedHTML = table.outerHTML
         .replace(/^<table>/g, "<div class='outline-colorido'>")
         .replace(/<\/table>$/g, "</div>");

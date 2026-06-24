@@ -1,4 +1,4 @@
-import { YTLinkRegex } from "./data";
+import { youtubePattern } from "./regexConstants";
 
 export function handleYTVideo() {
   const pTags = document.querySelectorAll(
@@ -6,14 +6,14 @@ export function handleYTVideo() {
   ) as NodeListOf<HTMLParagraphElement>;
 
   const YTLinksElems = [...pTags].filter((pTag) =>
-    YTLinkRegex.test(pTag.innerHTML),
+    youtubePattern.test(pTag.innerHTML),
   );
 
   YTLinksElems.forEach((linkElem) => {
-    const link = linkElem.innerHTML.match(YTLinkRegex)![0];
+    const link = linkElem.innerHTML.match(youtubePattern)![0];
     let text = linkElem.innerText;
 
-    if (YTLinkRegex.test(text)) {
+    if (youtubePattern.test(text)) {
       const prevElem = linkElem.previousElementSibling as HTMLElement;
       text = prevElem.innerHTML;
       prevElem.remove();

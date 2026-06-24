@@ -1,5 +1,5 @@
 import mammoth from "mammoth";
-import { contentHost as host } from "./main";
+import { contentHost } from "./main";
 
 export async function docToHTML(file: File) {
   try {
@@ -7,12 +7,12 @@ export async function docToHTML(file: File) {
     const arrayBuffer = await new Promise<ArrayBuffer>((resolve, reject) => {
       const reader = new FileReader();
 
-      // When content is finished, get result
+      // When content is finished, resolve result
       reader.onload = (e) => {
         if (e.target?.result instanceof ArrayBuffer) {
           resolve(e.target.result); // RESULT
         } else {
-          reject(new Error("Failed to read file as array buffer"));
+          reject(new Error("Failed to read file as array buffer."));
         }
       };
 
@@ -22,10 +22,10 @@ export async function docToHTML(file: File) {
     });
 
     const options = {
-      styleMap: ["comment-reference => sup.file"], // Allow comments
+      styleMap: ["comment-reference => sup.file"], // Allow comments (below content)
     };
 
-    // Mammoth reads as arrayBuffer
+    // (Mammoth reads as arrayBuffer)
     const fileConvertedToHtml = await mammoth.convertToHtml(
       {
         arrayBuffer: arrayBuffer, // Binary data container
@@ -33,9 +33,9 @@ export async function docToHTML(file: File) {
       options,
     );
 
-    const stringHtml = fileConvertedToHtml.value; // File content string
-    host.innerHTML = stringHtml; // Add file converted (content) to host element
+    const HTMLString = fileConvertedToHtml.value; // File content string
+    contentHost.innerHTML = HTMLString; // Add file converted (content) to host element
   } catch (error) {
-    console.error("Failed to converter doc to HTML: ", error);
+    console.error("Failed to converter doc to HTML,", error);
   }
 }

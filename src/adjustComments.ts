@@ -1,10 +1,14 @@
 export function adjustComments() {
-  const dt = document.querySelectorAll("dt") as NodeListOf<HTMLElement>;
+  const docComments = document.querySelectorAll(
+    "dt",
+  ) as NodeListOf<HTMLElement>;
 
-  [...dt]
-    .filter((element) => /ME/g.test(element.textContent))
-    .forEach((element) => {
-      element.nextElementSibling?.remove();
-      element.remove();
+  // Remove 'sub doc comments'
+  [...docComments]
+    .filter((docComment) => /ME/g.test(docComment.textContent))
+    .forEach((docComment) => {
+      const commentText = docComment.nextElementSibling as HTMLElement;
+      commentText.remove();
+      docComment.remove();
     });
 }

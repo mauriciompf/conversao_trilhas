@@ -5,6 +5,7 @@ export function adjustIframes() {
     "iframe",
   ) as NodeListOf<HTMLIFrameElement>;
 
+  // Adjust iframe class (lazyload)
   iframeEmbeds.forEach((iframe) => {
     if (
       iframe.className === "lazyloading" ||
