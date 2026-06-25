@@ -3,7 +3,6 @@ import { buildHTMLContent } from "./buildHTMLContent";
 import { getMetaData } from "./getMetadata";
 import { fileNameConverter } from "./fileNameConverter";
 import { contentHost } from "./main";
-import { adjustIframes } from "./adjustIframes";
 
 export async function generateZip() {
   const titleSections: string[] = [];
