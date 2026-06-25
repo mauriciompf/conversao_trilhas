@@ -6,12 +6,9 @@ export function adjustIframes() {
   ) as NodeListOf<HTMLIFrameElement>;
 
   // Adjust iframe class (lazyload)
-  iframeEmbeds.forEach((iframe) => {
-    if (
-      iframe.className === "lazyloading" ||
-      iframe.className === "lazyloaded"
-    ) {
+  [...iframeEmbeds]
+    .filter((iframe) => !iframe.classList.contains("lazyload"))
+    .forEach((iframe) => {
       iframe.className = "lazyload";
-    }
-  });
+    });
 }

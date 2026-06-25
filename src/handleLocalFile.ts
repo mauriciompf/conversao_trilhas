@@ -10,7 +10,7 @@ export function handleLocalFile() {
 
   if (commentTextsElem.length !== supComments.length) {
     throw new Error(
-      `Number of commentText 'dd' element (${commentTextsElem.length}) doesn't match number of supComments 'sup' element (${supComments.length}).`,
+      `DOC => Number of commentText 'dd' element (${commentTextsElem.length}) doesn't match number of supComments 'sup' element (${supComments.length}).`,
     );
   }
 
@@ -23,8 +23,9 @@ export function handleLocalFile() {
     const previousFileNameWrap =
       fileNameWrapElem.previousElementSibling as HTMLElement;
 
-    if (!previousFileNameWrap && fileNameWrapElem.closest(".dica-leitura"))
-      return; // Skip if already inside a 'dica-leitura' wrapper
+    if (!previousFileNameWrap) return;
+
+    if (fileNameWrapElem.closest(".dica-leitura")) return; // Skip if already inside a 'dica-leitura' wrapper
 
     // Wrap (paragraph + local file link) elements if previous element local file link is a 'p' or 'ul' element
     if (

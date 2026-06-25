@@ -16,7 +16,6 @@
 
     <link rel="icon" type="image/png" href="../img/favicon.png" />
 
-    <!-- Google Tag Manager -->
     <script>
       (function (w, d, s, l, i) {
         w[l] = w[l] || [];
@@ -32,7 +31,6 @@
         f.parentNode.insertBefore(j, f);
       })(window, document, "script", "dataLayer", "GTM-MP748JT");
     </script>
-    <!-- End Google Tag Manager -->
 
     <noscript>
       <link
@@ -45,15 +43,13 @@
     <link rel="stylesheet" href="../css/var_humanas.css" />
     <link rel="stylesheet" href="../css/style.css" />
     <link rel="stylesheet" href="../css/background.css" />
-    <link rel="stylesheet" href="css/style.css" />
 
     <script defer src="../js/progressbar.min.js"></script>
     <script defer src="../js/main.js"></script>
-    <script src="../js/lazysizes.min.js"></script>
+    <script src="../js/lazysizes.min.js" async></script>
   </head>
 
   <body>
-    <!-- Google Tag Manager (noscript) -->
     <noscript>
       <iframe
         src="https://www.googletagmanager.com/ns.html?id=GTM-MP748JT"
@@ -62,7 +58,6 @@
         style="display: none; visibility: hidden"
       ></iframe>
     </noscript>
-    <!-- End Google Tag Manager (noscript) -->
 
     <div id="accessibility-menu">
       <div
@@ -147,42 +142,35 @@
             <div class="sidebar-title">Minha Trilha</div>
 
             <div
-              id="main-menu-etapa_i"
+              id="main-menu-apresentacao"
               class="sidebar-item"
               onclick="redirect('apresentacao')"
             >
               Apresentação
             </div>
-            <div
-              id="main-menu-etapa_i"
-              class="sidebar-item"
-              onclick="redirect('etapa_i')"
-            >
-              Etapa I
-            </div>
 
             <div
               id="main-menu-u1"
               class="sidebar-item"
-              onclick="redirect('etapa_ii')"
+              onclick="redirect('unidade1')"
             >
-              Etapa II
+              Unidade 1
             </div>
 
             <div
               id="main-menu-u2"
               class="sidebar-item"
-              onclick="redirect('etapa_iii')"
+              onclick="redirect('unidade2')"
             >
-              <span>Etapa III</span>
+              <span>Unidade 2</span>
             </div>
 
             <div
               id="main-menu-u3"
               class="sidebar-item"
-              onclick="redirect('etapa_iv')"
+              onclick="redirect('unidade3')"
             >
-              Etapa IV
+              Unidade 3
             </div>
           </div>
         </div>
@@ -200,17 +188,16 @@
             <div class="content-text text-center">
               <p>
                 Apresentamos a você a trilha de aprendizagem da disciplina de
-                templateCode.<br /><br />
+                templateCode<br /><br />
                 Ela corresponde a um “caminho virtual de aprendizagem”, capaz de
                 promover e desenvolver competências no que concerne ao
                 conhecimento, à habilidade, à atitude, à interação e à autonomia
                 de seus estudos. <br /><br />Esta trilha de aprendizagem está
-                dividida em quatro etapas. São elas:
+                dividida em três unidades de estudos e apresentação da
+                disciplina. São elas:
               </p>
             </div>
           </div>
-
-          <!-- UNIDADES -->
 
           <div
             class="content-unidade blue-gradient-0"
@@ -223,25 +210,13 @@
               <i class="material-icons icon-large">chevron_right</i>
             </div>
           </div>
-          <div
-            class="content-unidade blue-gradient-0"
-            onclick="redirect('etapa_i')"
-          >
-            <div class="unidade-desc">
-              <h2 class="unidade-numero">Etapa I</h2>
-            </div>
-            <div class="unidade-go">
-              <i class="material-icons icon-large">chevron_right</i>
-            </div>
-          </div>
 
-          <!-- Mudar o nome das unidades - O nome você pega no sumário do livro -->
           <div
             class="content-unidade blue-gradient-1"
-            onclick="redirect('etapa_ii')"
+            onclick="redirect('unidade1')"
           >
             <div class="unidade-desc">
-              <h2 class="unidade-numero">Etapa II</h2>
+              <h2 class="unidade-numero">Unidade 1</h2>
             </div>
             <div class="unidade-go">
               <i class="material-icons icon-large">chevron_right</i>
@@ -250,10 +225,10 @@
 
           <div
             class="content-unidade blue-gradient-2"
-            onclick="redirect('etapa_iii')"
+            onclick="redirect('unidade2')"
           >
             <div class="unidade-desc">
-              <h2 class="unidade-numero">Etapa III</h2>
+              <h2 class="unidade-numero">Unidade 2</h2>
             </div>
             <div class="unidade-go">
               <i class="material-icons icon-large">chevron_right</i>
@@ -262,10 +237,10 @@
 
           <div
             class="content-unidade blue-gradient-3"
-            onclick="redirect('etapa_iv')"
+            onclick="redirect('unidade3')"
           >
             <div class="unidade-desc">
-              <h2 class="unidade-numero">Etapa IV</h2>
+              <h2 class="unidade-numero">Unidade 3</h2>
             </div>
             <div class="unidade-go">
               <i class="material-icons icon-large">chevron_right</i>
@@ -380,8 +355,8 @@
                   <i class="material-icons large">expand_less</i>
                 </div>
               </div>
-              <div class="button-wrapper flex-c" title="Ir para Etapa I">
-                <a class="button-next" href="etapa_i.html"
+              <div class="button-wrapper flex-c" title="Ir para Apresentação">
+                <a class="button-next" href="apresentacao.html"
                   >Avançar&emsp;<i class="material-icons large"
                     >chevron_right</i
                   ></a
@@ -389,6 +364,7 @@
               </div>
             </div>
           </div>
+
           <!-- Footer -->
 
           <div class="content-footer v22-1">

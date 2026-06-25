@@ -10,7 +10,12 @@ export function handleAllElements() {
     "SCRIPT",
     "IFRAME",
   ];
-  const textsToRemove = ["ponto", "Bons estudos!", "Bons estudos"];
+  const textsToRemove = [
+    "ponto",
+    "Bons estudos!",
+    "Bons estudos",
+    "BONS ESTUDOS E ATÉ A PRÓXIMA!",
+  ];
 
   elements.forEach((element) => {
     // Remove selected texts

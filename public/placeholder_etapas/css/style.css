@@ -1,0 +1,159 @@
+/* CAIXAS DE DESTAQUE */
+
+.destaque-titulo {
+  font-weight: bold;
+  margin: 1em 0 0;
+}
+
+.aviso {
+  padding: 15px 25px;
+  background-color: #eee;
+  border-left: 5px solid #d2d2d2;
+  margin: 2em 0;
+}
+
+.destaque-amarelo {
+  padding: 15px 25px;
+  background-color: rgba(255, 180, 0, 0.1);
+  border-left: 5px solid var(--uniasselvi-accent);
+  margin: 2em 0;
+}
+
+.outline-colorido {
+  border: 2px solid var(--uniasselvi-accent);
+  border-radius: 15px;
+  padding: 8px 24px;
+  margin: 2em 0;
+  box-shadow: 0 2px 4px #d2d2d2;
+  background-color: #fff;
+}
+
+/* TITULOS E TEXTOS */
+
+.titulo-secao {
+  background-color: #eee;
+  font-family: var(--title-font);
+  margin: 3em 0 1.5em 0;
+  font-weight: bolder;
+  padding: 10px;
+  border-left: 5px solid var(--uniasselvi-accent);
+  text-transform: uppercase;
+}
+
+code {
+  padding: 5px;
+  background-color: #eee;
+  font-weight: bolder;
+  text-align: center;
+  text-align-last: center;
+}
+
+.citacao {
+  line-height: 1.2;
+  padding-left: 8rem;
+}
+
+/* IMAGENS */
+
+.imagens {
+  display: block;
+  margin: 2em auto;
+}
+
+.info-imagens {
+  text-align: center;
+  text-align-last: center;
+}
+
+.fonte {
+  text-align: center;
+  text-align-last: center;
+  font-size: 0.8rem;
+}
+
+/* ATENDIMENTO */
+
+.atendimento {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 15px;
+  background-color: #eee;
+  border-radius: 8px;
+  border-left: 6px solid #d2d2d2;
+  padding: 16px;
+  box-shadow: 0 2px 4px #d2d2d2;
+  margin-top: 24px;
+}
+
+.atendimento img {
+  width: 180px;
+  margin: 10px 20px 5px 0;
+}
+
+.atendimento h3 {
+  font-weight: bold;
+  margin: 1em 0 0;
+}
+
+@media only screen and (max-width: 600px) {
+  .atendimento {
+    flex-direction: column;
+  }
+
+  .atendimento h3 {
+    text-align: center;
+    text-align-last: center;
+  }
+}
+
+/* TABELAS */
+
+.tabela-padrao {
+  margin: auto;
+  position: relative;
+}
+
+.tabela-padrao th {
+  background-color: var(--uniasselvi-accent);
+  color: #fff;
+  text-align: center;
+  text-align-last: center;
+}
+
+.tabela-padrao th,
+.tabela-padrao td {
+  line-height: 2;
+  padding: 10px 20px;
+}
+
+.tabela-padrao tr {
+  background-color: #eee;
+}
+
+.tabela-padrao thead > tr > th {
+  position: sticky;
+  top: 4em;
+  background-color: var(--uniasselvi-accent);
+  z-index: 1;
+}
+
+/*responsividade - tabela*/
+@media only screen and (max-width: 600px) {
+  table {
+    display: block;
+    overflow-x: auto;
+  }
+
+  table::-webkit-scrollbar {
+    height: 6px;
+  }
+
+  table::-webkit-scrollbar-thumb {
+    background-color: #d2d2d2;
+  }
+
+  td {
+    padding: 8px;
+  }
+}

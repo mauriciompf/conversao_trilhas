@@ -1,4 +1,3 @@
-import { adjustIframes } from "./adjustIframes";
 import { generateZip } from "./generateZip";
 
 export async function saveAs() {
@@ -7,7 +6,6 @@ export async function saveAs() {
 
     if (isCtrlS) {
       e.preventDefault();
-      adjustIframes();
       generateZip();
     }
   });

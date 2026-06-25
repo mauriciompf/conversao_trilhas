@@ -1,0 +1,218 @@
+<!doctype html>
+<html lang="pt-br">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Início - templateCode</title>
+    <meta
+      name="description"
+      content="Introdução à trilha de aprendizagem da disciplina de templateCode da UNIASSELVI"
+    />
+    <meta
+      name="keywords"
+      content="Trilha de aprendizagem, templateCode, Uniasselvi, EAD, Ensino Superior, Ciências Humanas"
+    />
+    <link rel="icon" type="image/png" href="../img/favicon.png" />
+
+    <!-- Google Tag Manager -->
+    <script>
+      (function (w, d, s, l, i) {
+        w[l] = w[l] || [];
+        w[l].push({
+          "gtm.start": new Date().getTime(),
+          event: "gtm.js",
+        });
+        var f = d.getElementsByTagName(s)[0],
+          j = d.createElement(s),
+          dl = l != "dataLayer" ? "&l=" + l : "";
+        j.async = true;
+        j.src = "https://www.googletagmanager.com/gtm.js?id=" + i + dl;
+        f.parentNode.insertBefore(j, f);
+      })(window, document, "script", "dataLayer", "GTM-MP748JT");
+    </script>
+
+    <!-- End Google Tag Manager -->
+    <noscript>
+      <link
+        rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap"
+      />
+    </noscript>
+    <link rel="stylesheet" href="../css/normalize.css" />
+    <link rel="stylesheet" href="../css/var_humanas.css" />
+    <link rel="stylesheet" href="../css/style.css" />
+    <link rel="stylesheet" href="../css/background.css" />
+    <script defer src="../js/progressbar.min.js"></script>
+    <script defer src="../js/main.js"></script>
+    <script src="../js/lazysizes.min.js"></script>
+  </head>
+  <body>
+    <!-- Google Tag Manager (noscript) -->
+    <noscript>
+      <iframe
+        src="https://www.googletagmanager.com/ns.html?id=GTM-MP748JT"
+        height="0"
+        width="0"
+        style="display: none; visibility: hidden"
+      ></iframe>
+    </noscript>
+
+    <!-- End Google Tag Manager (noscript) -->
+    <div id="accessibility-menu">
+      <div
+        id="accessibility-toggle"
+        class="accessibility-item"
+        onclick="toggleAccess()"
+        title="Acessibilidade"
+      >
+        <i class="material-icons">accessibility</i>
+      </div>
+      <div
+        id="accessibility-decrease"
+        class="accessibility-item"
+        onclick="decreaseFont()"
+        title="Diminuir a Fonte"
+      >
+        <i class="material-icons">text_fields</i>
+      </div>
+      <div
+        id="accessibility-reset"
+        class="accessibility-item"
+        onclick="resetFont()"
+        title="Redefinir a Fonte"
+      >
+        <i class="material-icons">title</i>
+      </div>
+      <div
+        id="accessibility-increase"
+        class="accessibility-item"
+        onclick="increaseFont()"
+        title="Aumentar a Fonte"
+      >
+        <i class="material-icons">format_size</i>
+      </div>
+    </div>
+    <div class="wrapper">
+      <div class="top-menu-toggle flex-c" onclick="toggleMenu()">
+        <i class="material-icons">menu</i>
+      </div>
+      <div id="topbar">
+        <div class="top-uniwrapper">
+          <a id="topbar-inicio" class="top-unidade selected">
+            <div class="top-antes"></div>
+            <span>Início</span>
+            <div class="top-depois"></div>
+          </a>
+        </div>
+        <div class="topbar-progress"></div>
+      </div>
+      <div id="sidebar">
+        <div class="wrapper">
+          <div class="sidebar-logo">
+            <img src="../img/favicon.png" alt="Logo Uniasselvi" />
+          </div>
+          <div class="sidebar-group hidden">
+            <div class="sidebar-search">
+              <input
+                type="text"
+                placeholder="pesquisar"
+                class="sidebar-input"
+              />
+              <i class="material-icons flex-c">search</i>
+            </div>
+          </div>
+          <div class="sidebar-group">
+            <div
+              id="main-menu-inicio"
+              class="sidebar-item selected"
+              onclick="redirect('inicio')"
+            >
+              <span>Início</span>
+              <div class="sidebar-progress"></div>
+            </div>
+          </div>
+          <div class="sidebar-group">
+            <div class="sidebar-title">Minha Trilha</div>
+            <div
+              id="main-menu-pandemia"
+              class="sidebar-item"
+              onclick="redirect('unidade1')"
+            >
+              Etapa única
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="content-page">
+        <div class="wrapper">
+          <h1 class="title-big flex-c bg0 text-white">templateCode</h1>
+          <div class="content-section no-shadow">
+            <h2 class="header header-gradient text-center">Bem-vindo</h2>
+            <div class="subheader text-center" style="margin-bottom: 40px">
+              À TRILHA DE APRENDIZAGEM
+            </div>
+            <div class="content-text text-center">
+              <p>
+                Apresentamos a você a trilha de aprendizagem da disciplina de
+                templateCode.<br /><br />
+                Ela corresponde a um “caminho virtual de aprendizagem”, capaz de
+                promover e desenvolver competências no que concerne ao
+                conhecimento, à habilidade, à atitude, à interação e à autonomia
+                de seus estudos. <br /><br />
+                Esta trilha de aprendizagem está dividida em uma única etapa.
+                Sendo ela:
+              </p>
+            </div>
+          </div>
+
+          <!-- UNIDADE -->
+          <div
+            class="content-unidade blue-gradient-0"
+            onclick="redirect('unidade1')"
+          >
+            <div class="unidade-desc">
+              <h2 class="unidade-numero">Etapa Única</h2>
+              <div class="unidade-nome">templateCode</div>
+            </div>
+            <div class="unidade-go">
+              <i class="material-icons icon-large">chevron_right</i>
+            </div>
+          </div>
+          <br />
+          <br />
+          <br />
+          <br />
+
+          <!-- Footer -->
+          <div class="content-footer">
+            <div class="footer-marca">
+              <img src="../img/favicon.png" alt="" />
+              <span class="footer-marca-texto"
+                >UNIASSELVI © Todos os direitos reservados.</span
+              >
+            </div>
+            <div class="footer-links">
+              <a href="https://portal.uniasselvi.com.br/" target="_blank">
+                <img src="../img/favicon.png" alt="" />
+                Acesse o Portal UNIASSELVI</a
+              >
+              <a href="https://ava2.uniasselvi.com.br/">
+                <img src="../img/texto_gio.svg" alt="" />
+                Ir para o AVA</a
+              >
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script>
+      /* Defer font loading */
+      var giftofspeed = document.createElement("link");
+      giftofspeed.rel = "stylesheet";
+      giftofspeed.href =
+        "https://fonts.googleapis.com/css2?family=Open+Sans&display=swap";
+      var godefer = document.getElementsByTagName("link")[0];
+      godefer.parentNode.insertBefore(giftofspeed, godefer);
+    </script>
+  </body>
+</html>
