@@ -3,7 +3,15 @@ export function handleTables() {
     "table",
   ) as NodeListOf<HTMLTableElement>;
 
-  const realTables = [...tables].filter((table) => table.rows.length >= 3);
+  let realTables;
+
+  if (!tables[0].querySelector("table")) {
+    realTables = [...tables].filter((table) => table.rows.length >= 3);
+  } else {
+    realTables = [...tables].filter(
+      (table, index) => index > 0 && table.rows.length >= 3,
+    );
+  }
 
   realTables.forEach((table) => {
     table.className = "tabela-padrao";
@@ -16,4 +24,11 @@ export function handleTables() {
       cell.replaceWith(fragment);
     });
   });
+
+  // Remove non-essential cells from the metadata table.
+  // [...realTables[0].querySelectorAll("tr")]
+  //   .filter((_, index) => index >= 3)
+  //   .forEach((el) => {
+  //     el.remove();
+  //   });
 }
