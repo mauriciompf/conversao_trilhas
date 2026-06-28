@@ -157,3 +157,14 @@ code {
     padding: 8px;
   }
 }
+
+.titulo {
+  background-color: #eee;
+  font-family: var(--title-font);
+  margin: 2em 0 1.5em;
+  font-size: 2rem;
+  font-weight: bolder;
+  padding: 10px;
+  border-left: 5px solid #ad00fd;
+  text-transform: uppercase;
+}
