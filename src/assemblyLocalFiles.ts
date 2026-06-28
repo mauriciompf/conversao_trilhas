@@ -7,9 +7,10 @@ export function assemblyLocalFiles() {
     const previousDicaLeituraDiv =
       dicaLeituraDiv.previousElementSibling as HTMLDivElement;
 
-    if (!previousDicaLeituraDiv) throw new Error("Failed to assembly.");
-
-    if (previousDicaLeituraDiv.classList.contains("dica-leitura")) {
+    if (
+      previousDicaLeituraDiv &&
+      previousDicaLeituraDiv.classList.contains("dica-leitura")
+    ) {
       const wrapper = document.createElement("div") as HTMLDivElement;
       wrapper.className = "dica-leitura";
 
