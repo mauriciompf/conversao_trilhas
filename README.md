@@ -19,4 +19,14 @@ cd conversao_trilhas
 
 # Instale as dependências
 pnpm install
+
+# Verifique todos os branches (locais e remotos)
+git branch -a
+
+# Faça checkout para o branch develop
+git checkout develop
+
+# Puxe as mudanças mais recentes do branch develop
+git pull origin develop
+
 ```
