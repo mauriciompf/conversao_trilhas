@@ -5,7 +5,7 @@ export function adjustComments() {
 
   // Remove 'sub doc comments'
   [...docComments]
-    .filter((docComment) => /ME/g.test(docComment.textContent))
+    .filter((docComment) => /ME|CG/g.test(docComment.textContent))
     .forEach((docComment) => {
       const commentText = docComment.nextElementSibling as HTMLElement;
       commentText.remove();

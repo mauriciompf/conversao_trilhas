@@ -9,6 +9,9 @@ export function handleAllElements() {
     "LINK",
     "SCRIPT",
     "IFRAME",
+    "TD",
+    "TH",
+    "A",
   ];
   const textsToRemove = [
     "ponto",
@@ -25,13 +28,24 @@ export function handleAllElements() {
           text.trim().toLowerCase() && element.remove(),
     );
 
-    // ! Remove empty tags
     if (
+      !excludedTags.includes(element.tagName) &&
+      element.textContent === "" &&
+      element.children.length === 0
+    ) {
+      // Remove empty tags
+      element.remove();
+    }
+
+    if (
+      element.parentNode &&
       !excludedTags.includes(element.tagName) &&
       element.textContent.trim() === "" &&
       element.children.length === 0
     ) {
-      element.remove();
+      // Replace with space
+      const textNode = document.createTextNode(" ");
+      element.parentNode.replaceChild(textNode, element);
     }
   });
 }

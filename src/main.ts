@@ -52,7 +52,7 @@ fileInput.addEventListener("change", async (event: Event) => {
   }
 
   try {
-    if (!file.name.match(docPattern)) throw new Error("Extesion not valid!");
+    if (!file.name.match(docPattern)) throw new Error("Extension not valid.");
 
     // Store file as binary data and file name
     const dataURL = await fileToDataURL(file); // Convert to base64

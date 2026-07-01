@@ -10,7 +10,7 @@ export function handleLocalFile() {
 
   if (commentTextsElem.length !== supComments.length) {
     throw new Error(
-      `DOC => Number of commentText 'dd' element (${commentTextsElem.length}) doesn't match number of supComments 'sup' element (${supComments.length}).`,
+      `documentError: Number of comments (${commentTextsElem.length}) doesn't match number of anchor elements (${supComments.length}).`,
     );
   }
 
