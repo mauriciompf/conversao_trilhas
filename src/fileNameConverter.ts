@@ -35,7 +35,11 @@ export function fileNameConverter(
     case "short":
       const shortFileName = fileName
         .split("_")
-        .filter((_, index) => index <= 2);
+        .filter((_, index) =>
+          fileName.includes("_trabalho") || fileName.includes("_ensino")
+            ? index <= 3
+            : index <= 2,
+        );
 
       return shortFileName.join("_");
     default:
