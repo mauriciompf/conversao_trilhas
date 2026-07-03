@@ -34,14 +34,21 @@ export function createDicaWrapper(
   }
 
   // Comment contains only hyperLink
-  if (commentText.match(urlPattern)) linkElement.href = commentTextFormmated;
+  if (commentText.match(urlPattern)) {
+    linkElement.href = commentTextFormmated;
+
+    // Replace empty string to 'Disponível aqui' text
+    if (fileNameWrapperElem.textContent.replace(/\[.*?\]/i, "") === "") {
+      fileNameWrapperElem.textContent = "Disponível aqui";
+    }
+  }
 
   linkElement.target = "_blank";
   linkElement.className = "content-link flex-c";
 
   const i = document.createElement("i");
   i.className = "material-icons";
-  i.textContent = "description";
+  i.textContent = commentText.match(urlPattern) ? "link" : "description";
 
   const span = document.createElement("span") as HTMLSpanElement;
   span.appendChild(fileNameWrapperElem);
