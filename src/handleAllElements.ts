@@ -18,6 +18,11 @@ export function handleAllElements() {
     "Bons estudos!",
     "Bons estudos",
     "BONS ESTUDOS E ATÉ A PRÓXIMA!",
+    "BONS ESTUDOS E ATÉ A PRÓXIMA",
+    "Bom trabalho!",
+    "Bom trabalho",
+    "Bom trabalho e até a próxima!",
+    "Bom trabalho e até a próxima",
   ];
 
   elements.forEach((element) => {
@@ -48,4 +53,11 @@ export function handleAllElements() {
       element.parentNode.replaceChild(textNode, element);
     }
   });
+
+  // Emphasize section title
+  const contentTitles = document.querySelectorAll(
+    ".content-text > .titulo-secao",
+  ) as NodeListOf<HTMLTableElement>;
+
+  contentTitles.forEach((title) => title.classList.add("titulo"));
 }
