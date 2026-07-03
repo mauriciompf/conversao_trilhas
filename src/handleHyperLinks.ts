@@ -1,4 +1,4 @@
-import { urlPattern } from "./regexConstants";
+import { urlPattern, urlPatternGlobal } from "./regexConstants";
 
 export function handleHyperLinks() {
   const pTags = document.querySelectorAll(
@@ -10,16 +10,58 @@ export function handleHyperLinks() {
   );
 
   hyperLinkElems.forEach((hyperLinkElem) => {
-    const text = hyperLinkElem.innerText.replace(urlPattern, "");
+    let text = hyperLinkElem.innerHTML.replace(urlPatternGlobal, "");
     const hyperLink = hyperLinkElem.innerHTML.match(urlPattern)![0];
 
-    const a = document.createElement("a") as HTMLAnchorElement;
-    a.href = hyperLink;
-    a.className = "humanas";
-    a.setAttribute("target", "_blank");
-    a.textContent = text;
+    if (!text) {
+      const prevElem = hyperLinkElem.previousElementSibling as HTMLElement;
 
-    hyperLinkElem.textContent = "";
-    hyperLinkElem.appendChild(a);
+      if (prevElem) {
+        text = prevElem.innerHTML;
+
+        prevElem.remove();
+      }
+    }
+
+    const wrapper = document.createElement("div") as HTMLDivElement;
+    wrapper.className = "dica-leitura";
+    const img = document.createElement("img") as HTMLImageElement;
+    img.src = "../img/ico/dica_d_outline.svg";
+    img.alt = "Dica de Leitura";
+
+    const textElement = document.createElement("p") as HTMLParagraphElement;
+    textElement.innerHTML = text;
+
+    const linkElement = document.createElement("a") as HTMLAnchorElement;
+    linkElement.target = "_blank";
+    linkElement.className = "content-link flex-c";
+    linkElement.href = hyperLink;
+
+    wrapper.append(img, textElement, linkElement);
+
+    const i = document.createElement("i");
+    i.className = "material-icons";
+    i.textContent = "link";
+
+    const span = document.createElement("span") as HTMLSpanElement;
+    // Text to long
+    // if (text.trim().length > 120) {
+    // }
+
+    span.innerHTML = "Disponível aqui";
+
+    linkElement.append(i, span);
+
+    hyperLinkElem.parentNode!.insertBefore(wrapper, hyperLinkElem);
+    hyperLinkElem.remove();
+
+    // const a = document.createElement("a") as HTMLAnchorElement;
+    // a.href = hyperLink;
+    // a.className = "humanas";
+    // a.setAttribute("target", "_blank");
+    // a.textContent = text;
+
+    // hyperLinkElem.textContent = "";
+    // hyperLinkElem.appendChild(a);
   });
 }
