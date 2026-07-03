@@ -10,7 +10,6 @@ export function handleVimeoVideo() {
   );
 
   [...pTagVimeoElems].forEach((element) => {
-    // console.log(element.outerHTML);
     const text = element.innerText;
     let vimeoLink = "";
 
@@ -30,7 +29,13 @@ export function handleVimeoVideo() {
     videoLargeDiv.className = "video-large";
 
     const textElement = document.createElement("p") as HTMLParagraphElement;
-    textElement.innerHTML = text;
+
+    if (text.match(vimeoPattern)) {
+      textElement.innerHTML = text.replace(vimeoPattern, "").trim();
+    } else {
+      textElement.innerHTML = text;
+    }
+
     videoWrapper.appendChild(textElement);
 
     const iframe = document.createElement("iframe") as HTMLIFrameElement;
