@@ -29,7 +29,13 @@ export async function generateZip() {
     // ** GET FIRST AND LAST TITLE SECTIONS TO DETERMINE CONTENT STRUCTURE **
 
     // Etapa Única
-    if (/[UÚ]NICA/i.test(firstTitleSection)) {
+    if (!firstTitleSection) {
+      await buildHTMLContent(
+        zip,
+        ["inicio", "objetos", "unidade1", "videos"],
+        "placeholder_etapa_unica",
+      );
+    } else if (/[UÚ]NICA/i.test(firstTitleSection)) {
       await buildHTMLContent(
         zip,
         ["inicio", "objetos", "unidade1", "videos"],
