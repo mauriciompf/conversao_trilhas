@@ -6,6 +6,8 @@ export function replaceTableTags(table: HTMLTableElement) {
   const section = document.createElement("div");
   section.className = "contentWrapper";
 
+  if (!content) return;
+
   // Move all content from the 'td' element to the new 'div' element
   while (content.firstChild) section.appendChild(content.firstChild);
   content.replaceWith(section);
