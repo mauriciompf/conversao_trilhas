@@ -53,8 +53,9 @@ code {
 }
 
 .citacao {
-  line-height: 1.2;
+  line-height: 1.4;
   padding-left: 8rem;
+  text-align: justify;
 }
 
 /* IMAGENS */
@@ -171,4 +172,30 @@ code {
   padding: 10px;
   border-left: 5px solid #ad00fd;
   text-transform: uppercase;
+}
+
+.dica-leitura > .titulo-secao {
+  margin: 0.5em 0 1.5em 0;
+}
+
+.img {
+  display: grid;
+  place-items: center;
+  margin-inline: auto;
+}
+
+ul ul {
+  list-style-type: circle;
+}
+
+ul ul ul {
+  list-style-type: square;
+}
+
+ol ol {
+  list-style-type: lower-latin;
+}
+
+ol ol ol {
+  list-style-type: lower-roman;
 }
