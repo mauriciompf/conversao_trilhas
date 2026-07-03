@@ -10,14 +10,20 @@ export function handleYTVideo() {
   );
 
   YTLinksElems.forEach((linkElem) => {
-    const link = linkElem.innerHTML.match(youtubePattern)![0];
+    let link = linkElem.innerHTML.match(youtubePattern)![0];
     let text = linkElem.innerText;
 
     if (youtubePattern.test(text)) {
       const prevElem = linkElem.previousElementSibling as HTMLElement;
+
+      if (!prevElem) return;
+
       text = prevElem.innerHTML;
       prevElem.remove();
     }
+
+    // Add protocol http
+    if (!link.startsWith("https://")) link = "http://" + link;
 
     const url = new URL(link);
     const linkFormmated =
@@ -39,8 +45,13 @@ export function handleYTVideo() {
       wrapper.appendChild(img);
     }
 
-    const textElem = document.createElement("p") as HTMLParagraphElement;
-    textElem.innerHTML = text;
+    const textElement = document.createElement("p") as HTMLParagraphElement;
+
+    if (text.match(youtubePattern)) {
+      textElement.innerHTML = text.replace(youtubePattern, "").trim();
+    } else {
+      textElement.innerHTML = text;
+    }
 
     const divVideo = document.createElement("div") as HTMLDivElement;
     divVideo.className = "video";
@@ -60,7 +71,7 @@ export function handleYTVideo() {
 
     divVideo.appendChild(divLargeVideo);
     divLargeVideo.appendChild(iframe);
-    wrapper.append(textElem, divVideo);
+    wrapper.append(textElement, divVideo);
 
     linkElem.remove();
   });
