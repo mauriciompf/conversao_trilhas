@@ -23,6 +23,22 @@ export function handleLocalFile() {
     const previousFileNameWrap =
       fileNameWrapElem.previousElementSibling as HTMLElement;
 
+    // If the fileNameWrapElem is too long, replace it with "Disponível aqui" and move the original filename to a new paragraph above it
+    if (fileNameWrapElem.textContent?.trim().length > 120) {
+      supComment.remove();
+
+      // Store the filename before modifying
+      const originalFileName = fileNameWrapElem.innerHTML;
+
+      const newPrev = document.createElement("p");
+      newPrev.innerHTML = originalFileName;
+      fileNameWrapElem.parentNode!.insertBefore(newPrev, fileNameWrapElem);
+
+      fileNameWrapElem.textContent = "Disponível aqui";
+
+      previousFileNameWrap = newPrev;
+    }
+
     if (!previousFileNameWrap) return;
 
     if (fileNameWrapElem.closest(".dica-leitura")) return; // Skip if already inside a 'dica-leitura' wrapper
