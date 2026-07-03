@@ -5,11 +5,18 @@ export function handleTables() {
 
   let realTables;
 
-  if (!tables[0].querySelector("table")) {
-    realTables = [...tables].filter((table) => table.rows.length >= 3);
+  const nestedTable = tables[0].querySelector("table") as HTMLTableElement;
+
+  // Filter tables based on the number of rows and cols.
+  if (!nestedTable) {
+    realTables = [...tables].filter(
+      (table) => table.rows.length >= 3 || table.rows[0].cells.length >= 2,
+    );
   } else {
     realTables = [...tables].filter(
-      (table, index) => index > 0 && table.rows.length >= 3,
+      (table, index) =>
+        (index > 0 && table.rows.length >= 3) ||
+        table.rows[0].cells.length >= 2,
     );
   }
 
@@ -53,8 +60,8 @@ export function handleTables() {
     });
 
     // Remove 'p' element inside table cells
-    const cells = table.querySelectorAll("tr > * > p");
-    cells.forEach((cell) => {
+    const pCells = table.querySelectorAll("tr > * > p");
+    pCells.forEach((cell) => {
       const html = cell.innerHTML.trim();
       const fragment = document.createRange().createContextualFragment(html);
       cell.replaceWith(fragment);
@@ -62,9 +69,9 @@ export function handleTables() {
   });
 
   // Remove non-essential cells from the metadata table.
-  // [...realTables[0].querySelectorAll("tr")]
-  //   .filter((_, index) => index >= 3)
-  //   .forEach((el) => {
-  //     el.remove();
-  //   });
+  [...realTables[0].querySelectorAll("tr")]
+    .filter((_, index) => index >= 3 && index <= 7)
+    .forEach((el) => {
+      el.remove();
+    });
 }
