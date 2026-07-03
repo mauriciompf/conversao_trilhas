@@ -1,4 +1,5 @@
 import { createDicaWrapper } from "./createDicaWrapper";
+import { vimeoPattern } from "./regexConstants";
 
 export function handleLocalFile() {
   const supComments = document.querySelectorAll(
@@ -18,9 +19,20 @@ export function handleLocalFile() {
     const fileNameWrapElem = supComment.closest("P") as HTMLElement;
     const commentTexts = commentTextsElem[index].innerText;
 
+    // Comment contains vimeo videos
+    if (commentTexts.match(vimeoPattern)) {
+      supComment.remove();
+
+      const newText = document.createElement("p") as HTMLParagraphElement;
+      newText.innerHTML = commentTexts.replace("↑", "").trim();
+      fileNameWrapElem.after(newText);
+
+      return;
+    }
+
     if (!fileNameWrapElem) return;
 
-    const previousFileNameWrap =
+    let previousFileNameWrap =
       fileNameWrapElem.previousElementSibling as HTMLElement;
 
     // If the fileNameWrapElem is too long, replace it with "Disponível aqui" and move the original filename to a new paragraph above it
