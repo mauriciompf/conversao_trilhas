@@ -1,42 +1,36 @@
+import { contentHost } from "./main";
+
 export function handleTitles() {
-  const contentWrapper = document.querySelectorAll(
-    ".contentWrapper",
+  const existingHeadings = contentHost.querySelectorAll(
+    "h1, h2, h3",
   ) as NodeListOf<HTMLElement>;
   const pTags = document.querySelectorAll(
     "p",
   ) as NodeListOf<HTMLParagraphElement>;
 
-  contentWrapper.forEach((section) => {
-    const headings = {
-      h1: section.querySelector("h1") as HTMLHeadingElement,
-      h2: section.querySelector("h2") as HTMLHeadingElement,
-      h3: section.querySelector("h3") as HTMLHeadingElement,
-    };
-    const existingHeadings = Object.entries(headings);
+  // Replace every heading with a paragraph of class 'titulo-secao' (title)
+  [...existingHeadings]
+    .filter((heading) => heading !== null)
+    .forEach((heading) => {
+      const p = document.createElement("p");
+      p.className = "titulo-secao";
+      p.innerHTML = heading.innerHTML;
+      heading.replaceWith(p);
+    });
 
-    // Replace every heading with a paragraph of class 'titulo-secao' (title)
-    existingHeadings
-      .filter(([_, heading]) => heading !== null)
-      .forEach(([_, heading]) => {
-        const p = document.createElement("p");
-        p.className = "titulo-secao";
-        p.innerHTML = heading.innerHTML;
-        heading.replaceWith(p);
-      });
-  });
-
+  // Add class 'titulo-secao' (title)
   const titles = [...pTags].filter((pTag) => {
-    const hasStrongDirectChild = [...pTag.children].some(
-      (child) => child.tagName === "STRONG",
-    );
+    const innerHTML = pTag.innerHTML.trim();
+    const isStrongTitle = /^.{0,3}<strong>.*<\/strong>.{0,2}$/i.test(innerHTML);
 
     const titleConditions =
-      hasStrongDirectChild &&
+      isStrongTitle &&
       pTag.textContent.length < 70 &&
-      !pTag.hasAttribute("class");
+      !pTag.hasAttribute("class") &&
+      !pTag.querySelector("br");
 
     return titleConditions;
   });
 
-  titles.forEach((title) => (title.className = "titulo-secao")); // Add class 'titulo-secao' (title)
+  titles.forEach((title) => (title.className = "titulo-secao"));
 }
