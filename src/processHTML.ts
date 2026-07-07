@@ -4,6 +4,7 @@ import { adjustNoSection } from "./adjustNoSection";
 import { adjustSections } from "./adjustSections";
 import { adjustSoloSection } from "./adjustSoloSection";
 import { assemblyLocalFiles } from "./assemblyLocalFiles";
+import { convertSingleItemOlToUl } from "./convertSingleItemOlToUl";
 import { handleAllElements } from "./handleAllElements";
 import { handleFakeTables } from "./handleFakeTables";
 import { handleHyperLinks } from "./handleHyperLinks";
@@ -35,4 +36,5 @@ export async function processHTML() {
   assemblyLocalFiles();
   addTypeRowToMetadataTable();
   handleStamps();
+  convertSingleItemOlToUl();
 }
