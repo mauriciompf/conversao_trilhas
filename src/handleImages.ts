@@ -9,6 +9,7 @@ export function handleImages() {
       img.setAttribute("alt", "");
     }
 
+    img.setAttribute("title", img.alt);
     img.className = "img";
   });
 }
