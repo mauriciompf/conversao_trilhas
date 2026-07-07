@@ -1,65 +1,75 @@
+import {
+  DEFAULT_STAMP_PATTERN,
+  END_STAMP_PATTERN,
+  START_STAMP_PATTERN,
+} from "./regexConstants";
+
 export function handleStamps() {
   const pTags = document.querySelectorAll(
     "p",
   ) as NodeListOf<HTMLParagraphElement>;
 
-  const stampPattern = /^\$([^\$]*)\$/i;
-  const startStampPattern = /^\$0([^$]*)\$/i;
-  const endStampPattern = /^\$1([^$]*)\$/i;
-
-  let startIndex = -1;
-  let currentClassName = "";
+  let startIndex: number = -1;
+  let currentClassName: string = "";
 
   pTags.forEach((pTag, index) => {
-    const text = pTag.textContent.trim();
+    const pTagTextContent = pTag.textContent.trim();
 
-    if (
-      !startStampPattern.test(text) &&
-      !endStampPattern.test(text) &&
-      stampPattern.test(text)
-    ) {
-      const className = pTag.textContent.match(stampPattern)![1];
+    const defaultStampMatch = pTagTextContent.match(
+      DEFAULT_STAMP_PATTERN,
+    ) as string[];
+    const startStampMatch = pTagTextContent.match(
+      START_STAMP_PATTERN,
+    ) as string[];
+    const endStampMatch = pTagTextContent.match(END_STAMP_PATTERN) as string[];
 
-      // Add stamp to className element
-      pTag.className = className;
+    if (defaultStampMatch && !endStampMatch) {
+      const defaultStampName: string = defaultStampMatch[1];
+      const pTagWithoutDefaultStamp = pTag.innerHTML.replace(
+        defaultStampMatch[0],
+        "",
+      );
 
-      // Remove stamp text
-      pTag.innerHTML = pTag.innerHTML.replace(/\$(.*?)\$/i, "");
+      pTag.innerHTML = pTagWithoutDefaultStamp;
+      pTag.classList.add(defaultStampName);
     }
 
-    // Check for start stamp
-    if (startStampPattern.test(text)) {
-      currentClassName = text.match(startStampPattern)![1];
+    if (startStampMatch) {
+      const startStampName: string = startStampMatch[1];
+      const pTagWithoutStartStamp = pTag.innerHTML.replace(
+        startStampMatch[0],
+        "",
+      );
+
+      pTag.innerHTML = pTagWithoutStartStamp;
+      currentClassName = startStampName;
       startIndex = index;
-      // Remove the stamp text
-      pTag.innerHTML = pTag.innerHTML.replace(/\$0(.*?)\$/i, "");
     }
 
-    // Check for end stamp
-    if (endStampPattern.test(text) && startIndex !== -1) {
-      // Remove the stamp text
-      pTag.innerHTML = pTag.innerHTML.replace(/\$1(.*?)\$/i, "");
+    if (endStampMatch && startIndex !== -1) {
+      const pTagWithoutEndStamp = pTag.innerHTML.replace(endStampMatch[0], "");
 
-      // Get the parent of the first paragraph
-      const parent = pTags[startIndex].parentNode;
+      pTag.innerHTML = pTagWithoutEndStamp;
+      const lastParagraphIndex = index;
 
-      // Create wrapper div with the class name
-      const wrapper = document.createElement("div");
-      wrapper.className = currentClassName;
+      const firstStampParagraph = pTags[startIndex] as HTMLElement;
+      const firstStampParagraphParent =
+        firstStampParagraph.parentNode as HTMLElement;
 
-      // Get all paragraphs from start to end (inclusive)
+      if (!firstStampParagraph && !firstStampParagraphParent) return;
+
+      const stampWrapper = document.createElement("div") as HTMLElement;
+      stampWrapper.classList.add(currentClassName);
+
       const paragraphsToWrap: HTMLParagraphElement[] = [];
-      for (let i = startIndex; i <= index; i++) {
+      for (let i = startIndex; i <= lastParagraphIndex; i++)
         paragraphsToWrap.push(pTags[i]);
-      }
 
-      // Wrap them
-      if (parent) {
-        parent.insertBefore(wrapper, pTags[startIndex]);
-        paragraphsToWrap.forEach((p) => wrapper.appendChild(p));
-      }
+      firstStampParagraphParent.insertBefore(stampWrapper, firstStampParagraph);
+      paragraphsToWrap.forEach((paragraph) =>
+        stampWrapper.appendChild(paragraph),
+      );
 
-      // Reset for next group
       startIndex = -1;
       currentClassName = "";
     }
