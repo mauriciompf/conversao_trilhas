@@ -1,15 +1,25 @@
 export function handleImages() {
   const imgs = document.querySelectorAll(
-    "p > img",
+    "p img",
   ) as NodeListOf<HTMLImageElement>;
 
   imgs.forEach((img) => {
-    // Add alt to all imgs
+    const imgParent = img.parentElement as HTMLElement;
+
+    if (!(imgParent instanceof HTMLParagraphElement)) {
+      imgParent.replaceWith(img);
+    }
+
     if (!img.hasAttribute("alt")) {
       img.setAttribute("alt", "");
     }
 
     img.setAttribute("title", img.alt);
     img.className = "img";
+
+    const currentParent = img.parentElement as HTMLElement;
+    if (currentParent instanceof HTMLParagraphElement) {
+      currentParent.replaceWith(img);
+    }
   });
 }
