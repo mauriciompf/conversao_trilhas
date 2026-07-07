@@ -182,6 +182,7 @@ code {
   display: grid;
   place-items: center;
   margin-inline: auto;
+  margin-block: 2rem;
 }
 
 ul ul {
