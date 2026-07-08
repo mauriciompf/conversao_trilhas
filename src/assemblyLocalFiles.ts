@@ -22,11 +22,12 @@ export function assemblyLocalFiles() {
       const dicaLeituraImg = dicaLeituraDiv.querySelector(
         "img",
       ) as HTMLImageElement;
-      const previousDicaLeituraImg = dicaLeituraDiv.querySelector(
+      const previousDicaLeituraImg = previousDicaLeituraDiv.querySelector(
         "img",
       ) as HTMLImageElement;
-      dicaLeituraImg.remove();
-      previousDicaLeituraImg.remove();
+
+      if (dicaLeituraImg) dicaLeituraImg.remove();
+      if (previousDicaLeituraImg) previousDicaLeituraImg.remove();
 
       // Insert wrapper (dica-leitura) before previous parent element and append div children
       previousDicaLeituraDiv.parentNode?.insertBefore(
