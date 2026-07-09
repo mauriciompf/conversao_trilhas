@@ -31,6 +31,13 @@ export function addTypeRowToMetadataTable() {
   }
 
   if (
+    /APRESENTA[CÇ][AÃ]O/i.test(titleSections[0]) &&
+    /UNIDADE (3|iii)/i.test(titleSections[titleSections.length - 1])
+  ) {
+    typeName.textContent = "Apresentação + 3 unidades";
+  }
+
+  if (
     /ETAPA (1|i)/i.test(titleSections[0]) &&
     /ETAPA (4|iv)/i.test(titleSections[titleSections.length - 1])
   ) {
