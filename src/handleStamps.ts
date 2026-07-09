@@ -1,6 +1,6 @@
 export function handleStamps() {
   const pTags = document.querySelectorAll(
-    "p",
+    "p, img, ul, ol",
   ) as NodeListOf<HTMLParagraphElement>;
 
   const stampPattern = /^\$([^\$]*)\$/i;
@@ -13,6 +13,7 @@ export function handleStamps() {
   pTags.forEach((pTag, index) => {
     const text = pTag.textContent.trim();
 
+    // Handle standalone stamps (not start or end)
     if (
       !startStampPattern.test(text) &&
       !endStampPattern.test(text) &&
@@ -20,10 +21,18 @@ export function handleStamps() {
     ) {
       const className = pTag.textContent.match(stampPattern)![1];
 
-      // Add stamp to className element
-      pTag.className = className;
+      const wrapper = document.createElement("div");
+      wrapper.className = className;
 
-      // Remove stamp text
+      const parent = pTag.parentNode;
+
+      // Replace the paragraph with the wrapper
+      if (parent) {
+        parent.insertBefore(wrapper, pTag);
+        wrapper.appendChild(pTag); // Move the paragraph inside the wrapper
+      }
+
+      // Remove stamp text from the paragraph
       pTag.innerHTML = pTag.innerHTML.replace(/\$(.*?)\$/i, "");
     }
 
