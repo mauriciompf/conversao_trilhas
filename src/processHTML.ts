@@ -32,9 +32,9 @@ export async function processHTML() {
   handleHyperLinks();
   handleAllElements();
   handleFakeTables();
-  handleImages();
   assemblyLocalFiles();
   addTypeRowToMetadataTable();
   handleStamps();
+  handleImages();
   convertSingleItemOlToUl();
 }
