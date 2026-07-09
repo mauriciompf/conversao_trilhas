@@ -78,6 +78,15 @@ export async function generateZip() {
         ["inicio", "etapa_i", "etapa_ii", "etapa_iii", "etapa_iv"],
         "placeholder_etapas",
       );
+    } else if (
+      /APRESENTA[CÇ][AÃ]O/i.test(firstTitleSection) &&
+      /UNIDADE (3|iii)/i.test(lastTitleSection)
+    ) {
+      await buildHTMLContent(
+        zip,
+        ["inicio", "apresentacao", "unidade1", "unidade2", "unidade3"],
+        "placeholder_3unidades",
+      );
     } else {
       throw new Error("Content structure not recognized.");
     }
