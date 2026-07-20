@@ -12,12 +12,14 @@ import {
   handleMetaDataTable,
   handleStamps,
 } from "../handlers";
+import { handleEmptySections } from "../handlers/handleEmptySections";
 import { handleVideos } from "../handlers/handleVideos";
 import { assemblyLocalFiles } from "../parsers/assemblyLocalFiles";
 
 export async function processHTML() {
   saveAs();
 
+  handleEmptySections();
   handleTitles();
   handleSubComments();
   handleTables();

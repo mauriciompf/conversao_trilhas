@@ -1,4 +1,4 @@
-import { urlPatternGlobal, urlPattern } from "../definitions";
+import { URL_PATTERN_GLOBAL, URL_PATTERN } from "../definitions";
 
 export function handleHyperLinks() {
   const pTags = document.querySelectorAll(
@@ -6,12 +6,12 @@ export function handleHyperLinks() {
   ) as NodeListOf<HTMLParagraphElement>;
 
   const hyperLinkElems = [...pTags].filter(
-    (pTag) => urlPattern.test(pTag.innerHTML), // Get all anchors with a URL pattern
+    (pTag) => URL_PATTERN.test(pTag.innerHTML), // Get all anchors with a URL pattern
   );
 
   hyperLinkElems.forEach((hyperLinkElem) => {
-    let text = hyperLinkElem.innerHTML.replace(urlPatternGlobal, "");
-    const hyperLink = hyperLinkElem.innerHTML.match(urlPattern)![0];
+    let text = hyperLinkElem.innerHTML.replace(URL_PATTERN_GLOBAL, "");
+    const hyperLink = hyperLinkElem.innerHTML.match(URL_PATTERN)![0];
 
     if (!text) {
       const prevElem = hyperLinkElem.previousElementSibling as HTMLElement;

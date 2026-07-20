@@ -1,4 +1,4 @@
-import { gDocPattern, urlPattern } from "../definitions/patterns";
+import { GDOC_PATTERN, URL_PATTERN } from "../definitions/patterns";
 
 export function createDicaWrapper(
   prevElem: HTMLElement,
@@ -25,16 +25,16 @@ export function createDicaWrapper(
   linkElement.href = commentTextLink;
 
   // Comment contains GDOC
-  if (commentText.match(gDocPattern)) {
+  if (commentText.match(GDOC_PATTERN)) {
     linkElement.removeAttribute("href");
     linkElement.setAttribute(
       "data-gdoc",
-      commentText.match(gDocPattern)!.filter((e) => e.match(/\d+/))![0],
+      commentText.match(GDOC_PATTERN)!.filter((e) => e.match(/\d+/))![0],
     ); // Set code and exclude texts
   }
 
   // Comment contains only hyperLink
-  if (commentText.match(urlPattern)) {
+  if (commentText.match(URL_PATTERN)) {
     linkElement.href = commentTextFormmated;
 
     // Replace empty string to 'Disponível aqui' text
@@ -48,7 +48,7 @@ export function createDicaWrapper(
 
   const i = document.createElement("i");
   i.className = "material-icons";
-  i.textContent = commentText.match(urlPattern) ? "link" : "description";
+  i.textContent = commentText.match(URL_PATTERN) ? "link" : "description";
 
   const span = document.createElement("span") as HTMLSpanElement;
   span.appendChild(fileNameWrapperElem);

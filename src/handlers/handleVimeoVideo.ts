@@ -1,4 +1,4 @@
-import { vimeoPattern } from "../definitions";
+import { VIMEO_PATTERN } from "../definitions";
 
 export function handleVimeoVideo() {
   const pTags = document.querySelectorAll(
@@ -6,14 +6,14 @@ export function handleVimeoVideo() {
   ) as NodeListOf<HTMLParagraphElement>;
 
   const pTagVimeoElems = [...pTags].filter((pTag) =>
-    vimeoPattern.test(pTag.innerHTML),
+    VIMEO_PATTERN.test(pTag.innerHTML),
   );
 
   [...pTagVimeoElems].forEach((element) => {
     const text = element.innerText;
     let vimeoLink = "";
 
-    if (element.innerHTML.match(vimeoPattern)) {
+    if (element.innerHTML.match(VIMEO_PATTERN)) {
       vimeoLink =
         "https://player.vimeo.com/video/" +
         element.innerHTML
@@ -30,8 +30,8 @@ export function handleVimeoVideo() {
 
     const textElement = document.createElement("p") as HTMLParagraphElement;
 
-    if (text.match(vimeoPattern)) {
-      textElement.innerHTML = text.replace(vimeoPattern, "").trim();
+    if (text.match(VIMEO_PATTERN)) {
+      textElement.innerHTML = text.replace(VIMEO_PATTERN, "").trim();
     } else {
       textElement.innerHTML = text;
     }

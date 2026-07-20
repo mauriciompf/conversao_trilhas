@@ -1,73 +1,51 @@
 import prettier from "prettier/standalone";
 import parserHtml from "prettier/plugins/html";
 import { getMetaData } from "../parsers";
+import { BASE64_PATTERN, SECTION_NAME_DEFAULT_LIST } from "../definitions";
 
 export async function buildHTMLContent(
   zip: any,
-  fileNames: string[],
-  type: string,
+  sectionNames: string[],
+  id_name: string,
 ) {
-  const sections = document.querySelectorAll(
+  const titles = document.querySelectorAll(
     ".contentWrapper",
   ) as NodeListOf<HTMLElement>;
 
-  const fileNameDefaultList = ["inicio", "objetos", "videos"];
+  // Seção: templates direcionados como arquivos a serem gerados
+  // Título: etapa/unidade do conteúdo
 
+  let globalImageCounter = 0;
+
+  const sectionNameContent = sectionNames.filter(
+    (section) => !SECTION_NAME_DEFAULT_LIST.includes(section),
+  );
+
+  const sectionNameDefaultArray = sectionNames.filter((section) =>
+    SECTION_NAME_DEFAULT_LIST.includes(section),
+  );
+
+  // Ajusta e separa cada seção (etapa/unidade) em um arquivo separado
+  // Cada arquivo tem seu template próprio a partir do modelo estabelecido
+  // Pode-se modificar seu conteúdo pós baixado
   try {
-    const fileNameDefault = fileNames.filter((filename) =>
-      fileNameDefaultList.includes(filename),
-    );
-
-    for (const filename of fileNameDefault) {
-      const { titleName } = getMetaData();
-
-      // Fetch .html from /public
-      const response = await fetch(`/${type}/${filename.trim()}.html`);
-      if (!response) throw new Error("Failed to fetch.");
-
-      // Get HTML as string and add title name
-      const contentString = (await response.text()).replaceAll(
-        "templateCode",
-        titleName,
-      );
-
-      // Prettier formatted
-      const HTMLFormatted = await prettier.format(contentString, {
-        parser: "html",
-        tabWidth: 2,
-        plugins: [parserHtml],
-      });
-
-      // Add to zip config with the corresponding filename
-      zip.file(`${filename}.html`, HTMLFormatted);
-    }
-
-    const fileNamesContent = fileNames.filter(
-      (filename) => !fileNameDefaultList.includes(filename),
-    );
-
-    for (const [index, filename] of fileNamesContent.entries()) {
-      if (sections.length !== fileNamesContent.length) {
+    for (const [index, sectionName] of sectionNameContent.entries()) {
+      if (titles.length !== sectionNameContent.length) {
         throw new Error(
-          `Number of sections (${sections.length}) doesn't match number of files (${fileNames.length}).`,
+          `Number of titles (${titles.length}) doesn't match number of sections (${sectionNameContent.length}), id_name: ${id_name}.`,
         );
       }
 
-      const section = sections[index];
-
       const { titleName } = getMetaData();
 
-      // Fetch .html from /public
-      const response = await fetch(`/${type}/${filename.trim()}.html`);
+      const response = await fetch(`/${id_name}/${sectionName.trim()}.html`);
       if (!response) throw new Error("Failed to fetch.");
 
-      // Get HTML as string and add title name
       const contentString = (await response.text()).replaceAll(
         "templateCode",
         titleName,
       );
 
-      // Converter string to HTML
       const parser = new DOMParser();
       const contentHTML = parser.parseFromString(contentString, "text/html");
 
@@ -75,25 +53,83 @@ export async function buildHTMLContent(
         ".content-text",
       ) as HTMLDivElement;
 
-      section.childNodes.forEach((childNode) => {
-        const clonedNode = childNode.cloneNode(true); // Clone all child nodes from each section
-        contentText.appendChild(clonedNode); // Append all child node into the 'contentText' div
+      contentText.innerHTML = "";
+
+      const sectionElem = titles[index];
+
+      sectionElem.childNodes.forEach((childNode) => {
+        const clonedNode = childNode.cloneNode(true);
+        contentText.appendChild(clonedNode);
+      });
+
+      const contentImgs = contentHTML.querySelectorAll(
+        ".img",
+      ) as NodeListOf<HTMLImageElement>;
+
+      contentImgs.forEach((img) => {
+        const base64DataUri = img.src;
+        const extension = base64DataUri.match(BASE64_PATTERN)?.[1] || "png";
+
+        globalImageCounter++;
+        img.src = `./imgs/image_${globalImageCounter}.${extension}`;
       });
 
       const HTMLString = contentHTML
         .querySelector("html")
-        ?.outerHTML.replaceAll(new RegExp(" ?lazyloaded ?", "gi"), "lazyload")
-        .replaceAll(new RegExp(" ?lazyloading ?", "gi"), "lazyload") as string; // Whole content string
+        ?.outerHTML.replaceAll(
+          new RegExp(" ?lazyloaded ?| ?lazyloading ?", "gi"),
+          "lazyload",
+        ) as string;
 
-      // Prettier formatted
       const HTMLFormatted = await prettier.format(HTMLString, {
         parser: "html",
         tabWidth: 2,
         plugins: [parserHtml],
       });
 
-      // Add to zip config with the corresponding filename
-      zip.file(`${filename}.html`, HTMLFormatted);
+      zip.file(`${sectionName}.html`, HTMLFormatted);
+    }
+
+    // ETAPA ÚNICA -> Cópia sem a separação entre arquivos
+    for (const sectionName of sectionNameDefaultArray) {
+      const { titleName } = getMetaData();
+
+      const response = await fetch(`/${id_name}/${sectionName.trim()}.html`);
+      if (!response) throw new Error("Failed to fetch.");
+
+      const contentString = (await response.text()).replaceAll(
+        "templateCode",
+        titleName,
+      );
+      const parser = new DOMParser();
+      const contentHTML = parser.parseFromString(contentString, "text/html");
+
+      const contentImgs = contentHTML.querySelectorAll(
+        ".img",
+      ) as NodeListOf<HTMLImageElement>;
+
+      contentImgs.forEach((img) => {
+        const base64DataUri = img.src;
+        const extension = base64DataUri.match(BASE64_PATTERN)?.[1] || "png";
+
+        globalImageCounter++;
+        img.src = `./imgs/image_${globalImageCounter}.${extension}`;
+      });
+
+      const HTMLString = contentHTML
+        .querySelector("html")
+        ?.outerHTML.replaceAll(
+          new RegExp(" ?lazyloaded ?| ?lazyloading ?", "gi"),
+          "lazyload",
+        ) as string;
+
+      const HTMLFormatted = await prettier.format(HTMLString, {
+        parser: "html",
+        tabWidth: 2,
+        plugins: [parserHtml],
+      });
+
+      zip.file(`${sectionName}.html`, HTMLFormatted);
     }
   } catch (error) {
     console.error("Failed to build HTML content: ", error);

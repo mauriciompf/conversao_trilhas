@@ -1,5 +1,5 @@
 import { createDicaWrapper } from "../parsers/createDicaWrapper";
-import { vimeoPattern } from "../definitions";
+import { VIMEO_PATTERN } from "../definitions";
 
 export function handleLocalFile() {
   const supComments = document.querySelectorAll(
@@ -20,7 +20,7 @@ export function handleLocalFile() {
     const commentTexts = commentTextsElem[index].innerText;
 
     // Comment contains vimeo videos
-    if (commentTexts.match(vimeoPattern)) {
+    if (commentTexts.match(VIMEO_PATTERN)) {
       supComment.remove();
 
       const newText = document.createElement("p") as HTMLParagraphElement;

@@ -2,81 +2,68 @@ import JSZip from "jszip";
 import { formatFileName, getMetaData } from "../parsers";
 import { contentHost } from "../core";
 import { buildHTMLContent } from "../transformers";
+import {
+  BASE64_PATTERN,
+  TYPE_CONFIGS,
+  UNICA_PATTERN,
+  type TypeConfigs,
+} from "../definitions";
 
 export async function generateZip() {
-  const zip = new JSZip();
-  const { titleName, code } = getMetaData();
-  const sectionTitles: string[] = [];
   const contentTitles = contentHost.querySelectorAll(
     ".content-text > .titulo-secao",
   ) as NodeListOf<HTMLTableElement>;
 
-  contentTitles.forEach((title) => sectionTitles.push(title.innerText)); // Get all section titles from the content host
+  const contentImgs = contentHost.querySelectorAll(
+    ".img",
+  ) as NodeListOf<HTMLImageElement>;
+
+  const { titleName, code } = getMetaData();
+  const sectionTitles: string[] = [];
+  const zip = new JSZip();
+
+  contentTitles.forEach((title) => sectionTitles.push(title.innerText));
 
   try {
-    zip.folder("materiais"); // Add folder /materiais
+    contentImgs.forEach((img, index) => {
+      const base64DataUri = img.src;
 
-    // Fetch /style.css
-    const responseCss = await fetch("/placeholder_4etapas/css/style.css"); // ! Adjust path (remove '/placeholder_4etapas' if needed) to maintain a default style.css for all zip files
-    if (!responseCss) throw new Error("Failed to fetch 'style.css'");
+      const extension = base64DataUri.match(BASE64_PATTERN)?.[1] || "png";
+      const cleanBase64 = base64DataUri.replace(BASE64_PATTERN, "");
+
+      zip.file(`imgs/image_${index + 1}.${extension}`, cleanBase64, {
+        base64: true,
+      });
+    });
+
+    zip.folder("materiais");
+
+    const responseCss = await fetch("./global.css");
+    if (!responseCss) throw new Error("Failed to fetch './global.css'.");
     const cssText = await responseCss.text();
-    zip.file("css/style.css", cssText); // Add folder /css and file style.css
+    zip.file("css/style.css", cssText);
 
     const firstTitleSection = sectionTitles[0];
     const lastTitleSection = sectionTitles.at(-1) || "";
 
-    // ** GET FIRST AND LAST TITLE SECTIONS TO DETERMINE CONTENT STRUCTURE **
+    const matchingType: TypeConfigs | undefined = TYPE_CONFIGS.find(
+      ({ pattern }) => {
+        const matchingFirstAndLastSection =
+          pattern.first.test(firstTitleSection) &&
+          pattern.last.test(lastTitleSection);
 
-    // Etapa Única
-    if (!firstTitleSection) {
+        return matchingFirstAndLastSection;
+      },
+    );
+
+    if (!firstTitleSection || UNICA_PATTERN.test(firstTitleSection)) {
       await buildHTMLContent(
         zip,
         ["inicio", "objetos", "unidade1", "videos"],
         "placeholder_etapa_unica",
       );
-    } else if (/[UÚ]NICA/i.test(firstTitleSection)) {
-      await buildHTMLContent(
-        zip,
-        ["inicio", "objetos", "unidade1", "videos"],
-        "placeholder_etapa_unica",
-      );
-    } else if (
-      // Apresentação + 3 etapas
-      /APRESENTA[CÇ][AÃ]O/i.test(firstTitleSection) &&
-      /ETAPA (3|iii)/i.test(lastTitleSection)
-    ) {
-      await buildHTMLContent(
-        zip,
-        ["inicio", "apresentacao", "etapa_i", "etapa_ii", "etapa_iii"],
-        "placeholder_3etapas",
-      );
-    } else if (
-      // Apresentação + 4 etapas
-      /APRESENTA[CÇ][AÃ]O/i.test(firstTitleSection) &&
-      /ETAPA (4|iv)/i.test(lastTitleSection)
-    ) {
-      await buildHTMLContent(
-        zip,
-        [
-          "inicio",
-          "apresentacao",
-          "etapa_i",
-          "etapa_ii",
-          "etapa_iii",
-          "etapa_iv",
-        ],
-        "placeholder_4etapas",
-      );
-    } else if (
-      // Etapas sem apresentação
-      /ETAPA (1|i)/i.test(firstTitleSection) &&
-      /ETAPA (4|iv)/i.test(lastTitleSection)
-    ) {
-      await buildHTMLContent(
-        zip,
-        ["inicio", "etapa_i", "etapa_ii", "etapa_iii", "etapa_iv"],
-        "placeholder_etapas",
-      );
+    } else if (matchingType) {
+      await buildHTMLContent(zip, matchingType.sections, matchingType.id_name);
     } else {
       throw new Error("Content structure not recognized.");
     }

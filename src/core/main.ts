@@ -1,7 +1,7 @@
 import { docToHTML } from "./docToHTML";
 import { processHTML } from "./processHTML";
 import { dataURLtoFile, fileToDataURL } from "../utils";
-import { docPattern } from "../definitions";
+import { DOC_PATTERN } from "../definitions";
 import { generateZip } from "../generators";
 
 // 'contentHost' => Tudo que está dentro conteúdo do host
@@ -41,33 +41,16 @@ fileInput.addEventListener("change", async (event: Event) => {
 
   if (!file) return;
 
-  // Check size (5MB)
-  const sizeLimit = 5 * 1000;
-  // const isLimitReached = file.size > sizeLimit;
-
   try {
-    if (!file.name.match(docPattern)) throw new Error("Extension not valid.");
+    if (!file.name.match(DOC_PATTERN)) throw new Error("Extension not valid.");
 
-    // Store file as binary data and file name
-    const dataURL = await fileToDataURL(file); // Convert to base64
-
-    console.log("file.size", file.size);
-    console.log("sizeLimit", sizeLimit);
+    const dataURL = await fileToDataURL(file);
 
     localStorage.setItem("fileDataURL", dataURL);
     localStorage.setItem("fileName", file.name);
 
-    // if (!isLimitReached) {
-    //   localStorage.setItem("fileDataURL", dataURL);
-    //   localStorage.setItem("fileName", file.name);
-    // } else {
-    //   console.warn(
-    //     `O Documento ultrassou o limite de tamanho estabelecido e não será salvo no navegador. (${sizeLimit / 1000}MB)`,
-    //   );
-    // }
-
-    await docToHTML(file); // Convert doc file to HTML
-    await processHTML(); // Edited HTML
+    await docToHTML(file);
+    await processHTML();
 
     removeFileBtn.classList.remove("opacity-50");
     downloadBtn.classList.remove("opacity-50");

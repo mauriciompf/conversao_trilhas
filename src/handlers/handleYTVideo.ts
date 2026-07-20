@@ -1,4 +1,4 @@
-import { youtubePattern } from "../definitions";
+import { YOUTUBE_PATTERN } from "../definitions";
 
 export function handleYTVideo() {
   const pTags = document.querySelectorAll(
@@ -6,14 +6,14 @@ export function handleYTVideo() {
   ) as NodeListOf<HTMLParagraphElement>;
 
   const YTLinksElems = [...pTags].filter((pTag) =>
-    youtubePattern.test(pTag.innerHTML),
+    YOUTUBE_PATTERN.test(pTag.innerHTML),
   );
 
   YTLinksElems.forEach((linkElem) => {
-    let link = linkElem.innerHTML.match(youtubePattern)![0];
+    let link = linkElem.innerHTML.match(YOUTUBE_PATTERN)![0];
     let text = linkElem.innerText;
 
-    if (youtubePattern.test(text)) {
+    if (YOUTUBE_PATTERN.test(text)) {
       const prevElem = linkElem.previousElementSibling as HTMLElement;
 
       if (!prevElem) return;
@@ -47,8 +47,8 @@ export function handleYTVideo() {
 
     const textElement = document.createElement("p") as HTMLParagraphElement;
 
-    if (text.match(youtubePattern)) {
-      textElement.innerHTML = text.replace(youtubePattern, "").trim();
+    if (text.match(YOUTUBE_PATTERN)) {
+      textElement.innerHTML = text.replace(YOUTUBE_PATTERN, "").trim();
     } else {
       textElement.innerHTML = text;
     }

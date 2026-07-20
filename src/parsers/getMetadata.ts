@@ -1,4 +1,4 @@
-import { codePattern } from "../definitions/patterns";
+import { CODE_PATTERN } from "../definitions/patterns";
 import { tableToJson } from "../transformers/tableToJson";
 
 export function getMetaData() {
@@ -16,8 +16,8 @@ export function getMetaData() {
       case "Nome da Disciplina":
         titleName = value.trim();
 
-        if (codePattern.test(value)) {
-          titleName = value.replace(codePattern, "").trim(); // Código da disciplina
+        if (CODE_PATTERN.test(value)) {
+          titleName = value.replace(CODE_PATTERN, "").trim(); // Código da disciplina
         }
         break;
       case "Código da Disciplina":
