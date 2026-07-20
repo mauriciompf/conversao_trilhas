@@ -1,6 +1,6 @@
 export function handleImages() {
   const imgs = document.querySelectorAll(
-    "p > img",
+    "p img",
   ) as NodeListOf<HTMLImageElement>;
 
   imgs.forEach((img) => {
@@ -9,5 +9,10 @@ export function handleImages() {
     }
 
     img.className = "img";
+
+    const currentParent = img.parentElement as HTMLElement;
+    if (currentParent instanceof HTMLParagraphElement) {
+      currentParent.replaceWith(img);
+    }
   });
 }

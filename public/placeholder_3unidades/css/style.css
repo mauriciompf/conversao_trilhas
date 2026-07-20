@@ -26,6 +26,10 @@
   margin: 2em 0;
   box-shadow: 0 2px 4px #d2d2d2;
   background-color: #fff;
+
+  .titulo-secao {
+    margin: 2em 0 1.5em 0;
+  }
 }
 
 /* TITULOS E TEXTOS */
@@ -49,8 +53,9 @@ code {
 }
 
 .citacao {
-  line-height: 1.2;
+  line-height: 1.4;
   padding-left: 8rem;
+  text-align: justify;
 }
 
 /* IMAGENS */
@@ -156,4 +161,42 @@ code {
   td {
     padding: 8px;
   }
+}
+
+.titulo {
+  background-color: #eee;
+  font-family: var(--title-font);
+  margin: 2em 0 1.5em;
+  font-size: 2rem;
+  font-weight: bolder;
+  padding: 10px;
+  border-left: 5px solid #ad00fd;
+  text-transform: uppercase;
+}
+
+.dica-leitura > .titulo-secao {
+  margin: 0.5em 0 1.5em 0;
+}
+
+.img {
+  display: grid;
+  place-items: center;
+  margin-inline: auto;
+  margin-block: 2rem;
+}
+
+ul ul {
+  list-style-type: circle;
+}
+
+ul ul ul {
+  list-style-type: square;
+}
+
+ol ol {
+  list-style-type: lower-latin;
+}
+
+ol ol ol {
+  list-style-type: lower-roman;
 }
