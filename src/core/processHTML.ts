@@ -1,7 +1,6 @@
 import { saveAs } from "../generators";
 import {
   handleTitles,
-  handleSubComments,
   handleTables,
   handleSections,
   handleLocalFile,
@@ -22,7 +21,6 @@ export async function processHTML() {
 
   handleEmptySections();
   handleTitles();
-  // handleSubComments();
   handleTables();
   handleSections();
   handleLocalFile();
