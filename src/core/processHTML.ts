@@ -15,13 +15,14 @@ import {
 import { handleEmptySections } from "../handlers/handleEmptySections";
 import { handleVideos } from "../handlers/handleVideos";
 import { assemblyLocalFiles } from "../parsers/assemblyLocalFiles";
+import { convertSingleItemOlToUl } from "../parsers/convertSingleItemOlToUl";
 
 export async function processHTML() {
   saveAs();
 
   handleEmptySections();
   handleTitles();
-  handleSubComments();
+  // handleSubComments();
   handleTables();
   handleSections();
   handleLocalFile();
@@ -33,4 +34,5 @@ export async function processHTML() {
   assemblyLocalFiles();
   handleMetaDataTable();
   handleStamps();
+  convertSingleItemOlToUl();
 }
