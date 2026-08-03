@@ -12,9 +12,9 @@ export function applyTitleClassToParagraphs() {
 
   const titles = [...pTags].filter((pTag) => {
     const pTagInnerHTML = pTag.innerHTML.trim();
-    const pTagTextContet = pTag.textContent.trim();
+    const pTagTextContent = pTag.textContent.trim();
     const isStrongTitle = STRONG_ELEMENT_PATTERN.test(pTagInnerHTML);
-    const isTextLimitLength = pTagTextContet.length < TITLE_TEXT_MAX_LENGTH;
+    const isTextLimitLength = pTagTextContent.length <= TITLE_TEXT_MAX_LENGTH;
     const hasClassAttribute = pTag.hasAttribute("class");
     const hasBrElement = pTag.querySelector("br");
 

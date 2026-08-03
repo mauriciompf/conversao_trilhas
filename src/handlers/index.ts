@@ -6,7 +6,6 @@ export * from "./handleLocalFile";
 export * from "./handleMetaDataTable";
 export * from "./handleSections";
 export * from "./handleStamps";
-export * from "./handleSubComments";
 export * from "./handleTables";
 export * from "./handleTitles";
 export * from "./handleVimeoVideo";
