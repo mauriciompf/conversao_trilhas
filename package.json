@@ -1,7 +1,18 @@
 {
   "name": "conversao_trilhas",
-  "private": true,
-  "version": "0.0.0",
+  "version": "1.0.0",
+  "description": "Converta um roteiro de trilha de aprendizagem em um documento HTML, visualize e baixe a trilha.",
+  "author": "Maurício Pinto Farias fariasmauricio11@outlook.com",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mauriciompf/conversao_trilhas"
+  },
+  "bugs": {
+    "url": "https://github.com/mauriciompf/conversao_trilhas/issues"
+  },
+  "homepage": "https://github.com/mauriciompf/conversao_trilhas#readme",
+  "private": false,
   "type": "module",
   "scripts": {
     "dev": "vite",
