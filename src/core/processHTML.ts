@@ -10,6 +10,7 @@ import {
   handleImages,
   handleMetaDataTable,
   handleStamps,
+  handleTexts,
 } from "../handlers";
 import { handleEmptySections } from "../handlers/handleEmptySections";
 import { handleVideos } from "../handlers/handleVideos";
@@ -33,4 +34,5 @@ export async function processHTML() {
   handleMetaDataTable();
   handleStamps();
   convertSingleItemOlToUl();
+  handleTexts();
 }
