@@ -10,3 +10,4 @@ export * from "./handleTables";
 export * from "./handleTitles";
 export * from "./handleVimeoVideo";
 export * from "./handleYTVideo";
+export * from "./handleTexts";
