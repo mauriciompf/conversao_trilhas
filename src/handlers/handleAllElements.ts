@@ -3,6 +3,12 @@ import { EXCLUDED_TAGS, TEXTS_TO_REMOVE } from "../definitions";
 export function handleAllElements() {
   const elements = document.querySelectorAll("*") as NodeListOf<HTMLElement>;
 
+  const contentTitles = document.querySelectorAll(
+    ".content-text > .titulo-secao",
+  ) as NodeListOf<HTMLTableElement>;
+
+  contentTitles.forEach((title) => title.classList.add("titulo")); // Emphasize section title
+
   elements.forEach((element) => {
     TEXTS_TO_REMOVE.forEach(
       (text) =>
@@ -27,11 +33,16 @@ export function handleAllElements() {
       const textNode = document.createTextNode(" ");
       element.parentNode.replaceChild(textNode, element); // Replace with space
     }
+
+    // Títulos atrás do outro
+
+    if (
+      element.tagName === "P" &&
+      element.classList.contains("titulo") &&
+      element.previousElementSibling?.tagName === "P" &&
+      element.previousElementSibling.classList.contains("titulo")
+    ) {
+      element.previousElementSibling.remove();
+    }
   });
-
-  const contentTitles = document.querySelectorAll(
-    ".content-text > .titulo-secao",
-  ) as NodeListOf<HTMLTableElement>;
-
-  contentTitles.forEach((title) => title.classList.add("titulo")); // Emphasize section title
 }
