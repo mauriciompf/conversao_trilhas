@@ -74,12 +74,16 @@ export async function buildHTMLContent(
         img.src = `./imgs/image_${globalImageCounter}.${extension}`;
       });
 
-      const HTMLString = contentHTML
+      let HTMLString = contentHTML
         .querySelector("html")
         ?.outerHTML.replaceAll(
           new RegExp(" ?lazyloaded ?| ?lazyloading ?", "gi"),
           "lazyload",
         ) as string;
+
+      if (!HTMLString.startsWith("<!doctype html>")) {
+        HTMLString = "<!DOCTYPE html>\n" + HTMLString;
+      }
 
       const HTMLFormatted = await prettier.format(HTMLString, {
         parser: "html",
@@ -116,12 +120,19 @@ export async function buildHTMLContent(
         img.src = `./imgs/image_${globalImageCounter}.${extension}`;
       });
 
-      const HTMLString = contentHTML
+      let HTMLString = contentHTML
         .querySelector("html")
         ?.outerHTML.replaceAll(
           new RegExp(" ?lazyloaded ?| ?lazyloading ?", "gi"),
           "lazyload",
         ) as string;
+
+      // Adoção do DOCTYPE HTML5 no topo do documento
+      // Validação necessária para um html moderno e estruturado
+
+      if (!HTMLString.startsWith("<!doctype html>")) {
+        HTMLString = "<!DOCTYPE html>\n" + HTMLString;
+      }
 
       const HTMLFormatted = await prettier.format(HTMLString, {
         parser: "html",
