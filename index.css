@@ -6,3 +6,7 @@
     all: revert;
   }
 }
+
+@theme {
+  --font-display: "Open Sans", sans-serif;
+}
