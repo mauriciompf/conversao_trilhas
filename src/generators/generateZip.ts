@@ -1,5 +1,4 @@
 import JSZip from "jszip";
-import { formatFileName, getMetaData } from "../parsers";
 import { contentHost } from "../core";
 import { buildHTMLContent } from "../transformers";
 import {
@@ -10,6 +9,10 @@ import {
 } from "../definitions";
 
 export async function generateZip() {
+  const folderNameInput = document.querySelector(
+    "#folderName",
+  ) as HTMLInputElement;
+
   const contentTitles = contentHost.querySelectorAll(
     ".content-text > .titulo-secao",
   ) as NodeListOf<HTMLTableElement>;
@@ -18,7 +21,6 @@ export async function generateZip() {
     ".img",
   ) as NodeListOf<HTMLImageElement>;
 
-  const { titleName, code } = getMetaData();
   const sectionTitles: string[] = [];
   const zip = new JSZip();
 
@@ -72,7 +74,7 @@ export async function generateZip() {
     const url = URL.createObjectURL(generateZipAsBlob);
     const link = document.createElement("a") as HTMLAnchorElement;
     link.href = url;
-    link.download = `${formatFileName(code + titleName, "short")}.zip`;
+    link.download = folderNameInput.value;
     link.click();
 
     link.remove();
