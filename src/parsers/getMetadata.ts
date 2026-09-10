@@ -10,6 +10,7 @@ export function getMetaData() {
 
   let code = "";
   let titleName = "";
+  let type = "";
 
   metadata.forEach(([key, value]) => {
     switch (key) {
@@ -23,10 +24,13 @@ export function getMetaData() {
       case "Código da Disciplina":
         code = value.trim();
         break;
+      case "Modelo":
+        type = value.trim();
+        break;
       default:
         break;
     }
   });
 
-  return { code, titleName };
+  return { code, titleName, type };
 }
