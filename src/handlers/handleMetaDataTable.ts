@@ -40,4 +40,6 @@ export function handleMetaDataTable() {
   const firstTable = document.querySelectorAll("table")[0] as HTMLTableElement;
   const tbody = firstTable.querySelector("tbody") as HTMLElement;
   tbody.appendChild(typeRow);
+
+  firstTable.classList.add("hidden");
 }
