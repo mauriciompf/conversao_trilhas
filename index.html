@@ -14,7 +14,14 @@
       content="Trilha de aprendizagem, Conversão de trilhas, Uniasselvi, EAD, Ensino Superior, Ciências Humanas, Apresentação"
     />
 
-    <link rel="icon" type="image/png" href="/img/favicon.png" />
+    <link rel="icon" type="image/png" href="/img/favicon32x32.png" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap"
+      rel="stylesheet"
+    />
 
     <noscript>
       <link
@@ -38,12 +45,12 @@
 
     <script type="module" src="/src/core/main.ts"></script>
   </head>
-  <body class="font-display">
+  <body class="h-screen">
     <!-- NEW CONFIG -->
-    <aside class="px-[20px] pt-[22px] pb-[80px]">
-      <div class="mx-auto grid max-w-[880px] gap-7">
+    <aside class="config font-display grid h-screen items-center px-5 pt-16">
+      <div class="mx-auto grid max-w-[780px] gap-7">
         <header>
-          <h1 class="text-3xl font-bold">
+          <h1 class="text-3xl font-bold tracking-wide">
             Conversor de Trilha de Aprendizagem
           </h1>
 
@@ -54,83 +61,126 @@
         </header>
 
         <!-- Add file -->
-        <form
-          class="cursor-pointer rounded-2xl border-2 border-dashed px-3 py-8"
-        >
-          <label class="grid gap-2 text-center" for="arquivo">
-            <span class="text-4xl">📄</span>
-            <strong>
-              Arraste o arquivo .docx aqui ou clique para escolher
-            </strong>
-            <span class="text-sm">
-              Só funciona com o Roteiro de Trilha de Aprendizagem em .docx
-            </span></label
+        <div class="grid gap-3">
+          <form
+            class="cursor-pointer rounded-2xl border-2 border-dashed select-none"
           >
-          <input
-            type="file"
-            accept=".doc,.docx,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document"
-            class="hidden"
-            id="arquivo"
-          />
+            <label
+              class="grid h-full w-full cursor-pointer gap-2 px-3 py-14 text-center"
+              for="arquivo"
+            >
+              <span class="text-4xl">📄</span>
+              <strong>
+                Arraste o arquivo .docx aqui ou clique para escolher
+              </strong>
+              <span class="text-sm">
+                Somente
+                <span class="italic">Roteiro de Trilha de Aprendizagem</span>
+                em formato <strong class="text-blue-600">word</strong>
+              </span></label
+            >
+            <input
+              type="file"
+              accept=".doc,.docx,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+              class="hidden"
+              id="arquivo"
+            />
+          </form>
+
+          <div class="flex gap-2 select-none">
+            <button
+              disabled="true"
+              class="removeFileBtn flex-1 cursor-not-allowed rounded-2xl border border-red-500 py-4 font-bold opacity-50"
+            >
+              Excluir arquivo
+            </button>
+            <button
+              disabled="true"
+              class="downloadBtn flex-1 cursor-not-allowed rounded-2xl bg-[#eead2d] font-bold opacity-50"
+            >
+              Baixar trilha (.zip)
+            </button>
+          </div>
+        </div>
+
+        <form class="inputData grid hidden grid-cols-2 gap-2">
+          <div class="col-span-1 grid gap-1">
+            <label class="text-sm italic" for="modelo">
+              Modelo da disciplina
+            </label>
+            <input
+              class="rounded-lg border px-2.5 py-3"
+              type="text"
+              readonly
+              id="modelo"
+            />
+          </div>
+
+          <div class="col-span-1 grid gap-1">
+            <label class="text-sm italic" for="codDisciplina">
+              Código da disciplina
+            </label>
+            <input
+              class="rounded-lg border px-2.5 py-3"
+              type="text"
+              readonly
+              id="codDisciplina"
+            />
+          </div>
+
+          <div class="col-span-2 grid gap-1">
+            <label class="text-sm italic" for="nameDisciplina">
+              Nome da disciplina
+            </label>
+            <input
+              class="rounded-lg border px-2.5 py-3"
+              type="text"
+              readonly
+              id="nameDisciplina"
+            />
+          </div>
+
+          <div class="col-span-2 grid gap-1">
+            <label class="text-sm italic" for="folderName">
+              Nome da pasta / do .zip (edite se quiser)
+            </label>
+            <input
+              maxlength="56"
+              class="rounded-lg border px-2.5 py-3"
+              type="text"
+              id="folderName"
+            />
+          </div>
+
+          <div class="col-span-full pt-5 text-center text-xl">
+            <span>👇</span>
+          </div>
         </form>
 
-        <footer>
+        <footer class="fixed bottom-6 left-6 w-[200px] max-xl:hidden">
           <p class="text-center text-sm">
-            Ferramenta interna · conversão automática cobre o padrão comum do
-            documento; revise os trechos marcados com REVISAR no HTML antes de
-            publicar.
+            Ferramenta interna · conversão semiautomática cobre o padrão comum
+            do documento; revise os trechos marcados com
+            <strong>REVISAR</strong> no HTML antes de publicar.
           </p>
         </footer>
       </div>
     </aside>
 
-    <!-- Config -->
-    <!-- <div
-      class="fixed top-0 right-0 left-0 z-50 border-b-2 border-yellow-500 bg-white shadow-md"
-    >
-      <div class="grid place-items-center px-4 py-3">
-        <div class="flex flex-wrap items-center gap-2">
-          <h1 class="text-xl! font-bold">CONVERSÃO DE TRILHAS</h1>
-          <span>|</span>
-
-          <label
-            class="cursor-pointer rounded-xl bg-gray-200 px-6 py-2 underline select-none hover:bg-gray-300 focus:bg-gray-300"
-            for="arquivo"
-            >Adicionar Arquivo
-            <input
-              accept=".doc,.docx,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document"
-              type="file"
-              class="hidden"
-              id="arquivo"
-            />
-          </label>
-
-          <button
-            type="button"
-            class="removeFileBtn cursor-pointer rounded-xl bg-gray-200 px-6 py-2 underline opacity-50 select-none hover:bg-gray-300 focus:bg-gray-300"
-          >
-            Excluir Arquivo Atual
-          </button>
-
-          <span>|</span>
-
-          <button
-            type="button"
-            class="downloadBtn cursor-pointer rounded-xl bg-gray-200 px-6 py-2 underline opacity-50 select-none hover:bg-gray-300 focus:bg-gray-300"
-          >
-            Baixar Trilha
-          </button>
-
-          <span>|</span>
-
-          <h2 class="text-sm">WORD (DOCX, DOC) => HTML</h2>
-        </div>
-      </div>
-    </div> -->
-
     <!-- Host -->
-    <div class="pt-25">
+    <main>
+      <aside
+        class="fixed right-10 bottom-10 grid size-20 cursor-pointer items-center rounded-full bg-black"
+      >
+        <button
+          class="gotoTop size-full cursor-pointer rounded-full text-4xl! select-none"
+          title="Ir ao topo da página"
+          aria-label="Ir ao topo da página"
+        >
+          ☝️
+        </button>
+      </aside>
       <div class="content-text reset-element"></div>
-    </div>
+    </main>
   </body>
 </html>
