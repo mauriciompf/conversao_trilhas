@@ -1,4 +1,3 @@
-import { contentHost } from ".";
 import { CODE_PATTERN } from "../definitions";
 import { saveAs } from "../generators";
 import {

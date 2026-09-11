@@ -3,7 +3,6 @@ import { processHTML } from "./processHTML";
 import { dataURLtoFile, fileToDataURL } from "../utils";
 import { DOC_PATTERN } from "../definitions";
 import { generateZip } from "../generators";
-import { formatFileName, getMetaData } from "../parsers";
 
 // 'contentHost' => Tudo que está dentro conteúdo do host
 // Removendo os elementos de configuração => /Adicionar Arquivo/Excluir Arquivo Atual/Etc...
