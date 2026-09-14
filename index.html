@@ -3,16 +3,9 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Conversão de trilhas</title>
+    <title>Conversor de Trilha de Aprendizagem</title>
 
-    <meta
-      name="description"
-      content="Apresentação da disciplina de Conversão de trilhas da UNIASSELVI"
-    />
-    <meta
-      name="keywords"
-      content="Trilha de aprendizagem, Conversão de trilhas, Uniasselvi, EAD, Ensino Superior, Ciências Humanas, Apresentação"
-    />
+    <meta name="description" content="Conversor de Trilha de Aprendizagem" />
 
     <link rel="icon" type="image/png" href="/img/favicon32x32.png" />
 
@@ -47,7 +40,7 @@
   </head>
   <body class="h-screen">
     <!-- CONFIG -->
-    <aside class="config font-display grid h-screen items-center px-5 pt-16">
+    <aside class="config font-display grid h-screen items-center px-5">
       <div class="mx-auto grid max-w-[780px] gap-7">
         <header>
           <h1 class="text-3xl font-bold tracking-wide">
@@ -63,10 +56,10 @@
         <!-- Add file -->
         <div class="grid gap-3">
           <form
-            class="cursor-pointer rounded-2xl border-2 border-dashed select-none"
+            class="dropZone cursor-pointer rounded-2xl border-2 border-dashed bg-[#fffafa] select-none"
           >
             <label
-              class="grid h-full w-full cursor-pointer gap-2 px-3 py-14 text-center"
+              class="grid size-full cursor-pointer gap-2 px-3 py-14 text-center"
               for="arquivo"
             >
               <span class="text-4xl">📄</span>
@@ -74,7 +67,7 @@
                 Arraste o arquivo .docx aqui ou clique para escolher
               </strong>
               <span class="text-sm">
-                Somente
+                *Somente
                 <span class="italic">Roteiro de Trilha de Aprendizagem</span>
                 em formato <strong class="text-blue-600">word</strong>
               </span></label
@@ -109,7 +102,7 @@
               Modelo da disciplina
             </label>
             <input
-              class="rounded-lg border px-2.5 py-3"
+              class="size-full rounded-lg border px-2.5 py-3"
               type="text"
               readonly
               id="modelo"
@@ -121,7 +114,7 @@
               Código da disciplina
             </label>
             <input
-              class="rounded-lg border px-2.5 py-3"
+              class="size-full rounded-lg border px-2.5 py-3"
               type="text"
               readonly
               id="codDisciplina"
@@ -133,7 +126,7 @@
               Nome da disciplina
             </label>
             <input
-              class="rounded-lg border px-2.5 py-3"
+              class="size-full rounded-lg border px-2.5 py-3"
               type="text"
               readonly
               id="nameDisciplina"
@@ -146,7 +139,7 @@
             </label>
             <input
               maxlength="56"
-              class="rounded-lg border px-2.5 py-3"
+              class="size-full rounded-lg border px-2.5 py-3"
               type="text"
               id="folderName"
             />
@@ -159,9 +152,8 @@
 
         <footer class="fixed bottom-6 left-6 w-[200px] max-xl:hidden">
           <p class="text-center text-sm">
-            Ferramenta interna · conversão semiautomática cobre o padrão comum
-            do documento; revise os trechos marcados com
-            <strong>REVISAR</strong> no HTML antes de publicar.
+            Ferramenta interna | conversão semiautomática cobre o padrão comum
+            do documento; revise os trechos marcados no HTML antes de publicar.
           </p>
         </footer>
       </div>
@@ -170,7 +162,7 @@
     <!-- Host -->
     <main>
       <aside
-        class="fixed right-10 bottom-10 grid size-20 cursor-pointer items-center rounded-full bg-black"
+        class="gotoTopWrapper right-10 bottom-10 grid hidden size-20 cursor-pointer items-center rounded-full bg-black"
       >
         <button
           class="gotoTop size-full cursor-pointer rounded-full text-4xl! select-none"
