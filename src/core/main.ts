@@ -25,6 +25,12 @@ const configElemWrapper = document.querySelector(".config") as HTMLElement;
 
 const downloadBtn = document.querySelector(".downloadBtn") as HTMLButtonElement;
 
+const dropZone = document.querySelector(".dropZone") as HTMLFormElement;
+
+const gotoTopWrapper = document.querySelector(
+  ".gotoTopWrapper",
+) as HTMLButtonElement;
+
 window.addEventListener("load", async () => {
   const storedDataURL = localStorage.getItem("fileDataURL");
   const storedFileName = localStorage.getItem("fileName");
@@ -36,6 +42,8 @@ window.addEventListener("load", async () => {
 
     if (removeFileBtn && downloadBtn) {
       configElemWrapper.classList.remove("grid", "h-screen", "items-center");
+      gotoTopWrapper.classList.add("fixed!");
+      configElemWrapper.classList.add("pt-16");
       inputDataElem.classList.remove("hidden");
       removeFileBtn.classList.remove("opacity-50");
       downloadBtn.classList.remove("opacity-50");
@@ -70,7 +78,10 @@ fileInput.addEventListener("change", async (event: Event) => {
 
     if (removeFileBtn && downloadBtn) {
       configElemWrapper.classList.remove("grid", "h-screen", "items-center");
+      configElemWrapper.classList.add("pt-16");
       inputDataElem.classList.remove("hidden");
+      gotoTopWrapper.classList.add("fixed!");
+
       removeFileBtn.classList.remove("opacity-50");
       downloadBtn.classList.remove("opacity-50");
 
@@ -92,6 +103,9 @@ if (removeFileBtn && downloadBtn) {
     localStorage.removeItem("name");
 
     configElemWrapper.classList.add("grid", "h-screen", "items-center");
+    configElemWrapper.classList.remove("pt-16");
+    gotoTopWrapper.classList.remove("fixed!");
+
     localStorage.removeItem("fileDataURL");
     localStorage.removeItem("fileName");
 
@@ -114,3 +128,90 @@ if (removeFileBtn && downloadBtn) {
     if (fileInput.value) generateZip();
   });
 }
+
+dropZone.addEventListener("dragover", (event) => {
+  event.preventDefault();
+});
+
+dropZone.addEventListener("drop", async (event) => {
+  event.preventDefault();
+
+  const file = [...event.dataTransfer!.items]
+    .map((item) => item.getAsFile())
+    .filter((file) => file)[0];
+
+  if (!file) return;
+
+  try {
+    if (!file.name.match(DOC_PATTERN)) throw new Error("Extension not valid.");
+
+    const dataURL = await fileToDataURL(file);
+
+    localStorage.setItem("fileDataURL", dataURL);
+    localStorage.setItem("fileName", file.name);
+
+    await docToHTML(file);
+    await processHTML();
+
+    if (removeFileBtn && downloadBtn) {
+      configElemWrapper.classList.remove("grid", "h-screen", "items-center");
+      configElemWrapper.classList.add("pt-16");
+      inputDataElem.classList.remove("hidden");
+      gotoTopWrapper.classList.add("fixed!");
+
+      removeFileBtn.classList.remove("opacity-50");
+      downloadBtn.classList.remove("opacity-50");
+
+      removeFileBtn.classList.remove("cursor-not-allowed");
+      downloadBtn.classList.remove("cursor-not-allowed");
+      removeFileBtn.classList.add("cursor-pointer");
+      downloadBtn.classList.add("cursor-pointer");
+
+      removeFileBtn.disabled = false;
+      downloadBtn.disabled = false;
+    }
+  } catch (err) {
+    console.error("Failed to store or process file,", err);
+  }
+});
+
+window.addEventListener("drop", (event) => {
+  if ([...event.dataTransfer!.items].some((item) => item.kind === "file")) {
+    event.preventDefault();
+  }
+});
+
+window.addEventListener("dragover", (event) => {
+  const fileItems = [...event.dataTransfer!.items].filter(
+    (item) => item.kind === "file",
+  );
+
+  if (fileItems.length > 0) {
+    event.preventDefault();
+
+    if (
+      fileItems.some((item) =>
+        item.type.startsWith(
+          "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+        ),
+      )
+    ) {
+      event.dataTransfer!.dropEffect = "move";
+    } else {
+      event.dataTransfer!.dropEffect = "none";
+    }
+  }
+});
+
+window.addEventListener("dragover", (event) => {
+  const fileItems = [...event.dataTransfer!.items].filter(
+    (item) => item.kind === "file",
+  );
+
+  if (fileItems.length > 0) {
+    event.preventDefault();
+    if (!dropZone.contains(event.target as HTMLInputElement)) {
+      event.dataTransfer!.dropEffect = "none";
+    }
+  }
+});
