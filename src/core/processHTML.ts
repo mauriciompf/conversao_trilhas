@@ -18,7 +18,6 @@ import { handleVideos } from "../handlers/handleVideos";
 import { formatFileName, getMetaData } from "../parsers";
 import { assemblyLocalFiles } from "../parsers/assemblyLocalFiles";
 import { convertSingleItemOlToUl } from "../parsers/convertSingleItemOlToUl";
-// import { tableToJson } from "../transformers";
 
 export async function processHTML() {
   saveAs();
@@ -38,11 +37,6 @@ export async function processHTML() {
   handleStamps();
   convertSingleItemOlToUl();
   handleTexts();
-
-  /*
-    ! AVISO
-    - ADICIONAR LOCALSTORAGE NO NOME DA PASTA (SALVAR O NOME DA PASTA)
-  */
 
   const gotoTop = document.querySelector(".gotoTop") as HTMLButtonElement;
 
